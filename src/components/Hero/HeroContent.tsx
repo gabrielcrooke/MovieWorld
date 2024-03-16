@@ -69,7 +69,7 @@ export const HeroContent = () => {
   return (
     <View style={styles.container}>
       {selectedMovie && (
-        <View style={[styles.heroContainer, styles.selectedMovies]}>
+        <View style={styles.heroContainer}>
           <View>
             <Image
               style={[styles.selectedMovie, styles.imageURl]}
@@ -195,6 +195,8 @@ const styles = StyleSheet.create({
   },
   selectedMovie: {
     width: 150,
-    height: 240,
+    height: 230,
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
   },
 });
