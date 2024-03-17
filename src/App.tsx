@@ -6,20 +6,13 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
-import {
-  BottomTabBar,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+import BarNavigation from './components/NavigationBar/BarNavigation';
 import {NavigationContainer} from '@react-navigation/native';
-import {Home} from './screens/Home';
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <StatusBar backgroundColor="#111827" />
-        <Home />
-      </ScrollView>
+      <BarNavigation />
     </SafeAreaView>
   );
 };

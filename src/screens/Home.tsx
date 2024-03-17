@@ -7,11 +7,6 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-import {
-  BottomTabBar,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
 import {MultiCarousel} from '../components/Home/MultiCarousel';
 import {HeroContent} from '../components/Hero/HeroContent';
 
