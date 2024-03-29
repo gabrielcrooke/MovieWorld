@@ -13,30 +13,56 @@ function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
+      shifting={true}
+      sceneAnimationEnabled={true}
+      activeColor="#FFFFFF"
+      inactiveColor="gray"
+      // eslint-disable-next-line react-native/no-inline-styles
       barStyle={{backgroundColor: 'black'}} // Change the background color of the bottom tab bar
     >
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({color}) => <Icon name="play" color={color} size={26} />,
+          tabBarLabel: <Text style={styles.labelText}>Home</Text>,
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({focused, color}) => (
+            <Icon
+              name="home"
+              {...{color: focused ? 'black' : 'gray'}}
+              size={28}
+            />
+          ),
         }}
       />
       <Tab.Screen
         name="Movies"
         component={Movies}
         options={{
-          tabBarLabel: 'Updates',
-          tabBarIcon: ({color}) => <Icon name="play" color={color} size={26} />,
+          tabBarLabel: <Text style={styles.labelText}>Movies</Text>,
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({focused, color}) => (
+            <Icon
+              name="play"
+              {...{color: focused ? 'black' : 'gray'}}
+              size={28}
+            />
+          ),
         }}
       />
       <Tab.Screen
         name="Series"
         component={Series}
         options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({color}) => <Icon name="play" color={color} size={26} />,
+          tabBarLabel: <Text style={styles.labelText}>Series</Text>,
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({focused, color}) => (
+            <Icon
+              name="film"
+              {...{color: focused ? 'black' : 'gray'}}
+              size={28}
+            />
+          ),
         }}
       />
     </Tab.Navigator>
@@ -52,7 +78,8 @@ export default function BarNavigation() {
 }
 
 const styles = StyleSheet.create({
-  barStyle: {
-    backgroundColor: '#000000',
+  labelText: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
