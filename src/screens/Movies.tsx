@@ -1,10 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {MoviesContent} from '../components/Movies/MoviesContent';
 
 export const Movies = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.Text}>Movies</Text>
+      <MoviesContent />
     </View>
   );
 };
