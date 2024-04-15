@@ -85,31 +85,33 @@ export const HeroContent = () => {
                 ? selectedMovie.overview.substring(0, 250) + '...'
                 : selectedMovie.overview}
             </Text>
-            <View style={styles.btnContainerPlay}>
-              <TouchableOpacity style={styles.btnStyle}>
-                <Text style={styles.btnText}>
-                  <Icon
-                    name="play"
-                    size={15}
-                    color="#F7CD2E"
-                    style={styles.icon}
-                  />{' '}
-                  Play
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.btnContainerInfo}>
-              <TouchableOpacity style={styles.btnStyle}>
-                <Text style={styles.btnText}>
-                  <Icon
-                    name="info"
-                    size={16}
-                    color="#F7CD2E"
-                    style={styles.icon}
-                  />{' '}
-                  More Info
-                </Text>
-              </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <View style={styles.btnContainerPlay}>
+                <TouchableOpacity style={styles.btnStyle}>
+                  <Text style={styles.btnText}>
+                    <Icon
+                      name="play"
+                      size={15}
+                      color="#F7CD2E"
+                      style={styles.icon}
+                    />{' '}
+                    Play
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.btnContainerInfo}>
+                <TouchableOpacity style={styles.btnStyle}>
+                  <Text style={styles.btnText}>
+                    <Icon
+                      name="info"
+                      size={16}
+                      color="#F7CD2E"
+                      style={styles.icon}
+                    />{' '}
+                    More Info
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
@@ -119,7 +121,7 @@ export const HeroContent = () => {
         horizontal
         //numColumns={3}
         data={dataHero}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
       />
     </View>
@@ -135,6 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   heroTextContainer: {
+    flex: 1,
     margin: 4,
     marginTop: 10,
     width: 240,
@@ -150,19 +153,25 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     color: '#a6adba',
   },
-  btnContainerPlay: {
+  buttonContainer: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  btnContainerPlay: {
+    /*flex: 1,
     flexDirection: 'row',
     position: 'absolute',
     top: 160,
-    left: 6,
+    left: 6,*/
   },
   btnContainerInfo: {
-    flex: 1,
+    /*flex: 1,
     flexDirection: 'row',
     position: 'absolute',
     top: 160,
-    left: 126,
+    left: 126,*/
   },
   btnStyle: {
     backgroundColor: '#1d4ed8',
