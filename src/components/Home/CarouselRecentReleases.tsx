@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import Carousel from './Carousel';
 
 export const CarouselRecentReleases = () => {
   const [data, setData] = useState([]);
@@ -62,49 +63,9 @@ export const CarouselRecentReleases = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Recent Releases</Text>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        //numColumns={3}
-        data={data}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <Image
-            style={styles.imageURl}
-            source={{
-              uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
-            }}
-          />
-        )}
-      />
+    <View>
+      <Carousel title="Recent Releases" data={data} />
+      {/* Add additional Carousels for other genres */}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 6,
-  },
-  title: {
-    fontSize: 25,
-    margin: 6,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  imageURl: {
-    marginTop: 12,
-    margin: 6,
-    width: 140,
-    height: 220,
-    borderRadius: 10,
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowColor: '#fff',
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
-  },
-});
