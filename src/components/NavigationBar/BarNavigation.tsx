@@ -17,7 +17,7 @@ function MyTabs() {
       sceneAnimationEnabled={true}
       activeColor="#FFFFFF"
       inactiveColor="gray"
-      barStyle={{backgroundColor: 'black'}} // Change the background color of the bottom tab bar
+      barStyle={{backgroundColor: 'black'}}
     >
       <Tab.Screen
         name="Home"
