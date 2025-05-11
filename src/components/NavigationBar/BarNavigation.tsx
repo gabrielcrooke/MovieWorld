@@ -17,6 +17,7 @@ function MyTabs() {
       sceneAnimationEnabled={true}
       activeColor="#FFFFFF"
       inactiveColor="gray"
+      // eslint-disable-next-line react-native/no-inline-styles
       barStyle={{backgroundColor: 'black'}} // Change the background color of the bottom tab bar
     >
       <Tab.Screen
