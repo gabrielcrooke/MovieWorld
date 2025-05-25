@@ -24,7 +24,7 @@ export function useFetchData(url: string, deps: any[] = []) {
         });
         setData(response.data.results);
       } catch (err: any) {
-        setError(err?.message || 'Error desconocido');
+        setError(err?.message ?? 'Error desconocido');
         setData([]);
       }
     };

@@ -1,5 +1,5 @@
 import {Text, View} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Carousel from './Carousel';
 import {useFetchData} from '../../hooks/useFetchData';
 import {useCurrentDate} from '../../hooks/useCurrentDate';

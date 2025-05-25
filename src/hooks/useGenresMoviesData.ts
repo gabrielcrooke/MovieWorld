@@ -28,7 +28,7 @@ export function useGenresMoviesData(genres: {id: number, title: string}[]) {
           setGenreData(Object.assign({}, ...results));
         }
       } catch (err: any) {
-        setError(err.message || 'Error desconocido');
+        setError(err.message ?? 'Error desconocido');
       }
     };
     fetchAll();
