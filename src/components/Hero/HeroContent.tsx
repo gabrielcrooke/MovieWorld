@@ -32,19 +32,16 @@ export const HeroContent = () => {
             },
           },
         );
-        //return response.data;
-        //console.log(response.data);
+        //console.log('API response:', response.data);
         setDataHero(response.data.results);
         if (response.data.results.length > 0) {
           setSelectedMovie(response.data.results[0]); // Set the first movie as the selected one
         }
-        //getDate();
       } catch (error) {
         console.error('Error fetching data: ', error);
-      }
+      } 
     };
     getTrendingMovies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Function to handle movie press

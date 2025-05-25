@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import BarNavigation from './components/NavigationBar/BarNavigation';
-import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   return (

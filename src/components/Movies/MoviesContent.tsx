@@ -1,4 +1,4 @@
-import {Dimensions, FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -24,10 +24,8 @@ export const MoviesContent = () => {
             },
           },
         );
-        //return response.data;
         //console.log(response.data);
         setData(response.data.results);
-        //getDate();
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
@@ -75,8 +73,6 @@ export const MoviesContent = () => {
     </View>
   );
 };
-
-//const Separator = () => <View style={styles.separator} />;
 
 const styles = StyleSheet.create({
   container: {

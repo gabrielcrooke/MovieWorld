@@ -53,7 +53,7 @@ const CarouselPresentationGenres = () => {
         <Carousel
           key={genre.id}
           title={genre.title}
-          data={genreData[genre.title] || []}
+          data={genreData[genre.title] ?? []}
         />
       ))}
     </View>

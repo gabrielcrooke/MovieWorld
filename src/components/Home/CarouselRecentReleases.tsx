@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import {View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Carousel from './Carousel';
@@ -25,10 +25,8 @@ export const CarouselRecentReleases = () => {
             },
           },
         );
-        //return response.data;
         //console.log(response.data);
         setData(response.data.results);
-        //getDate();
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
@@ -55,7 +53,6 @@ export const CarouselRecentReleases = () => {
 
     // Return the formatted date string (YYYY-MM-DD format)
     setDate(`${year}-${month}-${day}`);
-    //console.log(date);
   };
 
   useEffect(() => {

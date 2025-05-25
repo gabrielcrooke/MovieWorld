@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
@@ -17,8 +17,7 @@ function MyTabs() {
       sceneAnimationEnabled={true}
       activeColor="#FFFFFF"
       inactiveColor="gray"
-      barStyle={{backgroundColor: 'black'}}
-    >
+      barStyle={{backgroundColor: 'black'}}>
       <Tab.Screen
         name="Home"
         component={Home}
