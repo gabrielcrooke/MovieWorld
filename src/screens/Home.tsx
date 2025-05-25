@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet, ScrollView, StatusBar, SafeAreaView} from 'react-native';
 
 import {MultiCarousel} from '../components/Home/MultiCarousel';
 import {HeroContent} from '../components/Hero/HeroContent';
