@@ -2,13 +2,13 @@ import {View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Carousel from './Carousel';
+import {TMDB_AUTH_TOKEN} from '@env';
 
 export const CarouselRecentReleases = () => {
   const [data, setData] = useState([]);
   const [date, setDate] = useState('2024');
 
-  const authToken =
-    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZGEzMGFmNTkxMDUxN2VlODBiNWYxMmYwOGFmNmJhMiIsInN1YiI6IjY1ZTY3ZjIxMDk3YzQ5MDE4NjY1YmVkNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FQXXzyOc7inWSEqLhbzL2oTD6x8COpJwp_T4WzdC9_I';
+  const authToken = TMDB_AUTH_TOKEN;
 
   const baseURL = 'https://api.themoviedb.org/3';
 

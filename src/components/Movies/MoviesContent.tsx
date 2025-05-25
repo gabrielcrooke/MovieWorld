@@ -2,12 +2,12 @@ import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {TMDB_AUTH_TOKEN} from '@env';
 
 export const MoviesContent = () => {
   const [data, setData] = useState([]);
 
-  const authToken =
-    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZGEzMGFmNTkxMDUxN2VlODBiNWYxMmYwOGFmNmJhMiIsInN1YiI6IjY1ZTY3ZjIxMDk3YzQ5MDE4NjY1YmVkNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FQXXzyOc7inWSEqLhbzL2oTD6x8COpJwp_T4WzdC9_I';
+  const authToken = TMDB_AUTH_TOKEN;
 
   const baseURL = 'https://api.themoviedb.org/3';
 

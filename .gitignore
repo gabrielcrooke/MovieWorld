@@ -2,6 +2,9 @@
 #
 .DS_Store
 
+# .gitignore
+.env
+
 # Xcode
 #
 build/

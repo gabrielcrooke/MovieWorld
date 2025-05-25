@@ -34,7 +34,7 @@ target 'MovieWorld' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    #:flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -51,5 +51,21 @@ target 'MovieWorld' do
       config[:reactNativePath],
       :mac_catalyst_enabled => false
     )
+
+    # Fuerza el estándar C++17 y agrega fix para char8_t en Xcode 15+
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'
+        config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
+        # Fix para fmt/core.h y char8_t en Xcode 15+
+        existing_flags = config.build_settings['OTHER_CPLUSPLUSFLAGS']
+        flags_str = if existing_flags.is_a?(Array)
+          existing_flags.join(' ')
+        else
+          existing_flags.to_s
+        end
+        config.build_settings['OTHER_CPLUSPLUSFLAGS'] = "#{flags_str} -Dchar8_t=unsigned char".strip
+      end
+    end
   end
 end
