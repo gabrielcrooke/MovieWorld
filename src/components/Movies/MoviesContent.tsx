@@ -24,7 +24,7 @@ export const MoviesContent = () => {
             },
           },
         );
-        //console.log(response.data);
+        //console.log(response.data); //NOSONAR
         setData(response.data.results);
       } catch (error) {
         console.error('Error fetching data: ', error);

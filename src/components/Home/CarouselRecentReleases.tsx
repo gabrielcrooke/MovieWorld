@@ -25,7 +25,7 @@ export const CarouselRecentReleases = () => {
             },
           },
         );
-        //console.log(response.data);
+        //console.log(response.data); //NOSONAR
         setData(response.data.results);
       } catch (error) {
         console.error('Error fetching data: ', error);

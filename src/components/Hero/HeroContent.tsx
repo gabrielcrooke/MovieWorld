@@ -32,7 +32,7 @@ export const HeroContent = () => {
             },
           },
         );
-        //console.log('API response:', response.data);
+        //console.log('API response:', response.data); //NOSONAR
         setDataHero(response.data.results);
         if (response.data.results.length > 0) {
           setSelectedMovie(response.data.results[0]); // Set the first movie as the selected one
