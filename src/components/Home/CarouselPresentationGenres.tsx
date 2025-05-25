@@ -1,12 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React from 'react';
 import Carousel from './Carousel';
-import {View} from 'react-native';
-import {TMDB_AUTH_TOKEN} from '@env';
-
-const baseURL = 'https://api.themoviedb.org/3';
-
-const authToken = TMDB_AUTH_TOKEN;
+import {Text, View} from 'react-native';
+import {useGenresMoviesData} from '../../hooks/useGenresMoviesData';
 
 const genres = [
   {id: 28, title: 'Action'},
@@ -19,36 +14,15 @@ const genres = [
 ];
 
 const CarouselPresentationGenres = () => {
-  const [genreData, setGenreData] = useState({});
-
-  useEffect(() => {
-    const fetchGenreData = async () => {
-      try {
-        const genreDataPromises = genres.map(async genre => {
-          const response = await axios.get(
-            `${baseURL}/discover/movie?include_adult=false&include_video=true&language=en-US&page=1&sort_by=vote_count.desc&with_genres=${genre.id}`,
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: authToken,
-              },
-            },
-          );
-          return {[genre.title]: response.data.results};
-        });
-        const genreDataArray = await Promise.all(genreDataPromises);
-        const combinedGenreData = Object.assign({}, ...genreDataArray);
-        setGenreData(combinedGenreData);
-      } catch (error) {
-        console.error('Error fetching genre data: ', error);
-      }
-    };
-
-    fetchGenreData();
-  }, []);
+  const {genreData, error} = useGenresMoviesData(genres);
 
   return (
     <View>
+      {error && (
+        <Text style={{color: 'red'}}>
+          Ocurrió un error al cargar los géneros.
+        </Text>
+      )}
       {genres.map(genre => (
         <Carousel
           key={genre.id}

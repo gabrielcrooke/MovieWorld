@@ -1,7 +1,16 @@
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const Carousel = ({title, data}) => {
+type CarouselProps = {
+  title: string;
+  data: Array<{
+    id: number | string;
+    poster_path: string;
+    [key: string]: any;
+  }>;
+};
+
+const Carousel: React.FC<CarouselProps> = ({title, data}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
