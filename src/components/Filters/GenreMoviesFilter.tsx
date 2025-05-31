@@ -25,14 +25,13 @@ export const GenreMoviesFilter: React.FC<GenreFilterProps> = ({
           dropdownIconColor="#fff">
           <Picker.Item label="Filters" value="" enabled={false} />
           <Picker.Item label="All" value="" />
-          {genres &&
-            genres.map((genre: any) => (
-              <Picker.Item
-                key={genre.id}
-                label={genre.name}
-                value={genre.id.toString()}
-              />
-            ))}
+          {genres?.map((genre: any) => (
+            <Picker.Item
+              key={genre.id}
+              label={genre.name}
+              value={genre.id.toString()}
+            />
+          ))}
         </Picker>
       </View>
     </View>

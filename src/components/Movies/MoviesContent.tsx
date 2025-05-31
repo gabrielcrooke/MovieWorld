@@ -34,6 +34,17 @@ export const MoviesContent = () => {
 
   const {data, loading, error} = useFetchData(url, [url]);
 
+  const getOverviewText = (overview: string | undefined) => {
+    if (!overview || overview === '') {
+      return {text: 'No description available', isError: true};
+    }
+    return {
+      text:
+        overview.length > 150 ? overview.substring(0, 150) + '...' : overview,
+      isError: false,
+    };
+  };
+
   if (loading) {
     return (
       <View style={styles.container}>
@@ -64,50 +75,47 @@ export const MoviesContent = () => {
         numColumns={2}
         data={data}
         keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (
-          <View style={styles.imgContainer}>
-            <Image
-              style={styles.imageURl}
-              source={
-                item.poster_path
-                  ? {
-                      uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
-                    }
-                  : require('../../assets/images/no-image.png')
-              }
-            />
-            <View style={styles.headerMovieContainer}>
-              <Text style={styles.headerMovieContainerText}>
-                {!item.release_date || item.release_date === '' ? (
-                  <Text style={styles.errorText}>Not available</Text>
-                ) : (
-                  item.release_date
-                )}{' '}
-              </Text>
-              <Text
-                style={[styles.headerMovieContainerText, styles.voteAverage]}>
-                <Icon name="star" size={14} color="#F7CD2E" />{' '}
-                {item.vote_average.toFixed(1)}/10
-              </Text>
+        renderItem={({item}) => {
+          const {text, isError} = getOverviewText(item.overview);
+
+          return (
+            <View style={styles.imgContainer}>
+              <Image
+                style={styles.imageURl}
+                source={
+                  item.poster_path
+                    ? {
+                        uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
+                      }
+                    : require('../../assets/images/no-image.png')
+                }
+              />
+              <View style={styles.headerMovieContainer}>
+                <Text style={styles.headerMovieContainerText}>
+                  {!item.release_date || item.release_date === '' ? (
+                    <Text style={styles.errorText}>Not available</Text>
+                  ) : (
+                    item.release_date
+                  )}{' '}
+                </Text>
+                <Text
+                  style={[styles.headerMovieContainerText, styles.voteAverage]}>
+                  <Icon name="star" size={14} color="#F7CD2E" />{' '}
+                  {item.vote_average.toFixed(1)}/10
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.movieTitle}>{item.title}</Text>
+              </View>
+              <View>
+                <Text
+                  style={!isError ? styles.movieOverview : styles.errorText}>
+                  {text}
+                </Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.movieTitle}>{item.title}</Text>
-            </View>
-            <View>
-              <Text style={styles.movieOverview}>
-                {!item.overview || item.overview === '' ? (
-                  <Text style={[styles.movieOverview, styles.errorText]}>
-                    No overview available
-                  </Text>
-                ) : item.overview.length > 150 ? (
-                  item.overview.substring(0, 150) + '...'
-                ) : (
-                  item.overview
-                )}
-              </Text>
-            </View>
-          </View>
-        )}
+          );
+        }}
         ListFooterComponent={
           <Paginador
             page={page}
@@ -186,5 +194,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
+    marginLeft: 8,
   },
 });
