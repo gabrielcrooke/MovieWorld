@@ -4,19 +4,18 @@ import {
   ScrollView,
   StatusBar,
   SafeAreaView,
-  ActivityIndicator,
   View,
 } from 'react-native';
-
 import {MultiCarousel} from '../components/Home/MultiCarousel';
 import {HeroContent} from '../components/Hero/HeroContent';
+import LoadingIndicator from '../components/Loading/LoadingIndicator';
 
 export const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Simulando la carga de datos, pendireemplaza con tu lógica real
-    const timer = setTimeout(() => setLoading(false), 1500);
+    const timer = setTimeout(() => setLoading(false), 2500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -24,7 +23,7 @@ export const Home = () => {
     <SafeAreaView style={styles.container}>
       {loading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#fff" />
+          <LoadingIndicator />
         </View>
       ) : (
         <ScrollView>

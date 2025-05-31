@@ -42,10 +42,10 @@ export const HeroContent = () => {
       }
     };
     getTrendingMovies();
-  }, []);
+  }, [authToken]);
 
   // Function to handle movie press
-  const handleMoviePress = movie => {
+  const handleMoviePress = (movie: any) => {
     setSelectedMovie(movie); // Set the selected movie
   };
 
@@ -70,9 +70,13 @@ export const HeroContent = () => {
           <View>
             <Image
               style={[styles.selectedMovie, styles.imageURl]}
-              source={{
-                uri: `https://image.tmdb.org/t/p/w400/${selectedMovie.poster_path}`,
-              }}
+              source={
+                selectedMovie.poster_path
+                  ? {
+                      uri: `https://image.tmdb.org/t/p/w400/${selectedMovie.poster_path}`,
+                    }
+                  : require('../../assets/images/no-image.png')
+              }
             />
           </View>
           <View style={styles.heroTextContainer}>
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   heroOverview: {
-    textAlign: 'justify',
+    //textAlign: 'justify',
     color: '#a6adba',
   },
   buttonContainer: {

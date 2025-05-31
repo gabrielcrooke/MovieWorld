@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-picker/picker": "^2.11.0",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/material-bottom-tabs": "^6.2.27",
     "@react-navigation/native": "^6.1.15",

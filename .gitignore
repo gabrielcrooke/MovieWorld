@@ -4,6 +4,7 @@
 
 # .gitignore
 .env
+env.d.ts
 
 # Xcode
 #

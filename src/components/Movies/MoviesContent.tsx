@@ -1,74 +1,121 @@
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {TMDB_AUTH_TOKEN} from '@env';
+import {useFetchData} from '../../hooks/useFetchData';
+import LoadingIndicator from '../Loading/LoadingIndicator';
+import Paginador from '../pagination/Paginador';
+import {GenreMoviesFilter} from '../Filters/GenreMoviesFilter';
+import {OrderMoviesFilter} from '../Filters/OrderMoviesFilter';
 
 export const MoviesContent = () => {
-  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [selectedGenre, setSelectedGenre] = useState<string | undefined>('');
+  const [selectedOrder, setSelectedOrder] = useState<string>('most_popular');
 
-  const authToken = TMDB_AUTH_TOKEN;
+  // Construye la URL dinámicamente según el género seleccionado
+  let url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
 
-  const baseURL = 'https://api.themoviedb.org/3';
+  // Aplica el filtro de orden
+  if (selectedOrder === 'most_popular') {
+    url += '&sort_by=popularity.desc';
+  } else if (selectedOrder === 'less_popular') {
+    url += '&sort_by=popularity.asc';
+  } else if (selectedOrder === 'top_rated') {
+    url +=
+      '&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200';
+  } else if (selectedOrder === 'lowest_rated') {
+    url +=
+      '&sort_by=vote_average.asc&without_genres=99,10755&vote_count.gte=200';
+  }
+  //Aplica el filtro de género si se ha seleccionado uno
+  if (selectedGenre && selectedGenre !== '') {
+    url += `&with_genres=${selectedGenre}`;
+  }
 
-  useEffect(() => {
-    const getDataMovies = async () => {
-      try {
-        const response = await axios.get(
-          baseURL +
-            '/discover/movie?include_adult=false&include_video=false&language=en-US&page=2&sort_by=popularity.desc',
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: authToken,
-            },
-          },
-        );
-        //console.log(response.data); //NOSONAR
-        setData(response.data.results);
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-      }
-    };
-    getDataMovies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  const {data, loading, error} = useFetchData(url, [url]);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <LoadingIndicator />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
+      <View style={styles.pickersContainer}>
+        <GenreMoviesFilter
+          selectedGenre={selectedGenre}
+          setSelectedGenre={setSelectedGenre}
+        />
+        <OrderMoviesFilter
+          selectedOrder={selectedOrder}
+          setSelectedOrder={setSelectedOrder}
+        />
+      </View>
+      {error && (
+        <Text style={styles.errorText}>
+          Ocurrió un error al cargar los datos.
+        </Text>
+      )}
       <FlatList
         showsVerticalScrollIndicator={false}
-        vertical={true}
         numColumns={2}
         data={data}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
           <View style={styles.imgContainer}>
             <Image
               style={styles.imageURl}
-              source={{
-                uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
-              }}
+              source={
+                item.poster_path
+                  ? {
+                      uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
+                    }
+                  : require('../../assets/images/no-image.png')
+              }
             />
             <View style={styles.headerMovieContainer}>
-              <Text style={styles.headerMovieContainerText}>{item.release_date}</Text>
+              <Text style={styles.headerMovieContainerText}>
+                {!item.release_date || item.release_date === '' ? (
+                  <Text style={styles.errorText}>Not available</Text>
+                ) : (
+                  item.release_date
+                )}{' '}
+              </Text>
               <Text
                 style={[styles.headerMovieContainerText, styles.voteAverage]}>
-                <Icon
-                  name="star"
-                  size={18}
-                  color="#F7CD2E"
-                  style={styles.icon}
-                />{' '}
+                <Icon name="star" size={14} color="#F7CD2E" />{' '}
                 {item.vote_average.toFixed(1)}/10
               </Text>
             </View>
             <View>
               <Text style={styles.movieTitle}>{item.title}</Text>
             </View>
+            <View>
+              <Text style={styles.movieOverview}>
+                {!item.overview || item.overview === '' ? (
+                  <Text style={[styles.movieOverview, styles.errorText]}>
+                    No overview available
+                  </Text>
+                ) : item.overview.length > 150 ? (
+                  item.overview.substring(0, 150) + '...'
+                ) : (
+                  item.overview
+                )}
+              </Text>
+            </View>
           </View>
         )}
-        // ItemSeparatorComponent={Separator}
+        ListFooterComponent={
+          <Paginador
+            page={page}
+            setPage={setPage}
+            isFirstPage={page === 1}
+            isLastPage={page === 500}
+          />
+        }
       />
     </View>
   );
@@ -78,8 +125,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 6,
-    justifyContent: 'center', // Center vertically
-    alignItems: 'center', // Center horizontally
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pickersContainer: {
+    flexDirection: 'row',
   },
   title: {
     fontSize: 25,
@@ -89,8 +139,8 @@ const styles = StyleSheet.create({
   },
   imgContainer: {
     flexGrow: 1,
-    width: 190,
-    height: 360,
+    width: 195,
+    height: 410,
     backgroundColor: '#1f2937',
     margin: 3,
     borderRadius: 10,
@@ -113,7 +163,6 @@ const styles = StyleSheet.create({
   },
   headerMovieContainer: {
     flexDirection: 'row',
-    // justifyContent: 'space-evenly',
     marginLeft: 10,
   },
   headerMovieContainerText: {
@@ -131,9 +180,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginLeft: 8,
   },
-  separator: {
-    height: 10, // Adjust this value to change the amount of horizontal space
-    width: 10,
-    backgroundColor: 'white',
+  movieOverview: {
+    color: '#a6adba',
+    marginLeft: 8,
+  },
+  errorText: {
+    color: 'red',
   },
 });
