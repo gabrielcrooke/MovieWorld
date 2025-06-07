@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {Home} from '../../screens/Home';
 import {Movies} from '../../screens/Movies';
 import {Series} from '../../screens/Series';
+import NavigationStack from '../navigation/NavigationStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -35,7 +36,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Movies"
-        component={Movies}
+        component={NavigationStack}
         options={{
           tabBarLabel: <Text style={styles.labelText}>Movies</Text>,
           // eslint-disable-next-line react/no-unstable-nested-components

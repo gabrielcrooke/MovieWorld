@@ -1,4 +1,11 @@
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useFetchData} from '../../hooks/useFetchData';
@@ -6,11 +13,19 @@ import LoadingIndicator from '../Loading/LoadingIndicator';
 import Paginador from '../pagination/Paginador';
 import {GenreMoviesFilter} from '../Filters/GenreMoviesFilter';
 import {OrderMoviesFilter} from '../Filters/OrderMoviesFilter';
+import {useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  MoviesDetails: {movie: any};
+};
 
 export const MoviesContent = () => {
   const [page, setPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState<string | undefined>('');
   const [selectedOrder, setSelectedOrder] = useState<string>('most_popular');
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   // Construye la URL dinámicamente según el género seleccionado
   let url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
@@ -80,39 +95,47 @@ export const MoviesContent = () => {
 
           return (
             <View style={styles.imgContainer}>
-              <Image
-                style={styles.imageURl}
-                source={
-                  item.poster_path
-                    ? {
-                        uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
-                      }
-                    : require('../../assets/images/no-image.png')
-                }
-              />
-              <View style={styles.headerMovieContainer}>
-                <Text style={styles.headerMovieContainerText}>
-                  {!item.release_date || item.release_date === '' ? (
-                    <Text style={styles.errorText}>Not available</Text>
-                  ) : (
-                    item.release_date
-                  )}{' '}
-                </Text>
-                <Text
-                  style={[styles.headerMovieContainerText, styles.voteAverage]}>
-                  <Icon name="star" size={14} color="#F7CD2E" />{' '}
-                  {item.vote_average.toFixed(1)}/10
-                </Text>
-              </View>
-              <View>
-                <Text style={styles.movieTitle}>{item.title}</Text>
-              </View>
-              <View>
-                <Text
-                  style={!isError ? styles.movieOverview : styles.errorText}>
-                  {text}
-                </Text>
-              </View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('MoviesDetails', {movie: item})
+                }>
+                <Image
+                  style={styles.imageURl}
+                  source={
+                    item.poster_path
+                      ? {
+                          uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
+                        }
+                      : require('../../assets/images/no-image.png')
+                  }
+                />
+                <View style={styles.headerMovieContainer}>
+                  <Text style={styles.headerMovieContainerText}>
+                    {!item.release_date || item.release_date === '' ? (
+                      <Text style={styles.errorText}>Not available</Text>
+                    ) : (
+                      item.release_date
+                    )}{' '}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.headerMovieContainerText,
+                      styles.voteAverage,
+                    ]}>
+                    <Icon name="star" size={14} color="#F7CD2E" />{' '}
+                    {item.vote_average.toFixed(1)}/10
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.movieTitle}>{item.title}</Text>
+                </View>
+                <View>
+                  <Text
+                    style={!isError ? styles.movieOverview : styles.errorText}>
+                    {text}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
           );
         }}
