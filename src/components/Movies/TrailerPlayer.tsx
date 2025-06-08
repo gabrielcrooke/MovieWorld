@@ -36,27 +36,30 @@ const TrailerPlayer: React.FC<Props> = ({movie}) => {
     fetchTrailer();
   }, [movie.id]);
 
+  let trailerContent;
+  if (!trailerKey && loading) {
+    trailerContent = <LoadingIndicator />;
+  } else if (trailerKey) {
+    trailerContent = (
+      <>
+        {loading && <LoadingIndicator />}
+        <WebView
+          javaScriptEnabled
+          source={{uri: `https://www.youtube.com/embed/${trailerKey}`}}
+          onLoadStart={() => setLoading(true)}
+          onLoadEnd={() => setLoading(false)}
+          style={styles.webview}
+        />
+      </>
+    );
+  } else {
+    trailerContent = <Text style={styles.errorText}>No trailer available</Text>;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.Text}>{movie.title}</Text>
-      <View style={styles.trailerContainer}>
-        {!trailerKey && loading ? (
-          <LoadingIndicator />
-        ) : trailerKey ? (
-          <>
-            {loading && <LoadingIndicator />}
-            <WebView
-              javaScriptEnabled
-              source={{uri: `https://www.youtube.com/embed/${trailerKey}`}}
-              onLoadStart={() => setLoading(true)}
-              onLoadEnd={() => setLoading(false)}
-              style={styles.webview}
-            />
-          </>
-        ) : (
-          <Text style={styles.errorText}>No trailer available</Text>
-        )}
-      </View>
+      <View style={styles.trailerContainer}>{trailerContent}</View>
     </View>
   );
 };
