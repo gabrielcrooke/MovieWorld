@@ -11,10 +11,18 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import {useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+type RootStackParamList = {
+  MoviesDetails: {movie: any};
+};
 
 export const HeroContent = () => {
   const [dataHero, setDataHero] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const authToken = TMDB_AUTH_TOKEN;
 
@@ -101,7 +109,19 @@ export const HeroContent = () => {
                 </TouchableOpacity>
               </View>
               <View style={styles.btnContainerInfo}>
-                <TouchableOpacity style={styles.btnStyle}>
+                <TouchableOpacity
+                  style={styles.btnStyle}
+                  onPress={() => {
+                    navigation.navigate('Movies', {
+                      screen: 'MoviesScreen',
+                    });
+                    setTimeout(() => {
+                      navigation.navigate('Movies', {
+                        screen: 'MoviesDetails',
+                        params: {movie: selectedMovie},
+                      });
+                    }, 100); // pequeño delay para asegurar que el stack se monte
+                  }}>
                   <Text style={styles.btnText}>
                     <Icon
                       name="info"

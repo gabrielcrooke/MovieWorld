@@ -1,11 +1,14 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
-import BarNavigation from './components/NavigationBar/BarNavigation';
+import NavigationStack from './components/navigation/NavigationStack';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <BarNavigation />
+      <NavigationContainer>
+        <NavigationStack />
+      </NavigationContainer>
     </SafeAreaView>
   );
 };

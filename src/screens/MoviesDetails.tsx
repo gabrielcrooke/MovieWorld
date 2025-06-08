@@ -1,11 +1,20 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Text} from 'react-native-paper';
+import TrailerPlayer from '../components/Movies/TrailerPlayer';
+import {useRoute, RouteProp} from '@react-navigation/native';
+import MoviesDetailsContent from '../components/Movies/MoviesDetailsContent';
+
+type RootStackParamList = {
+  MoviesDetails: {movie: any};
+};
 
 export const MoviesDetails = () => {
+  const route = useRoute<RouteProp<RootStackParamList, 'MoviesDetails'>>();
+  const {movie} = route.params;
   return (
     <View style={styles.container}>
-      <Text style = {styles.Text}>Movies Details</Text>
+      <TrailerPlayer movie={movie} />
+      <MoviesDetailsContent />
     </View>
   );
 };
