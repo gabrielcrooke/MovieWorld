@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/*eslint-disable prettier/prettier*/
 import {
   FlatList,
   Image,
@@ -38,17 +38,18 @@ const Carousel: React.FC<CarouselProps> = ({title, data}) => {
         data={data}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
-          <TouchableOpacity onPress={() => {
-                    navigation.navigate('Movies', {
-                      screen: 'MoviesScreen',
-                    });
-                    setTimeout(() => {
-                      navigation.navigate('Movies', {
-                        screen: 'MoviesDetails',
-                        params: {movie: item},
-                      });
-                    }, 100); // pequeño delay para asegurar que el stack se monte
-                  }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Movies', {
+                screen: 'MoviesScreen',
+              });
+              setTimeout(() => {
+                navigation.navigate('Movies', {
+                  screen: 'MoviesDetails',
+                  params: {movie: item},
+                });
+              }, 100); // pequeño delay para asegurar que el stack se monte
+            }}>
             <Image
               style={styles.imageURl}
               source={{
