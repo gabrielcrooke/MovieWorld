@@ -130,7 +130,7 @@ const MoviesDetailsContent: React.FC = () => {
       </View>
 
       {activeTab === 'Details' ? (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View>
             <Text style={styles.Text}>
               {showFullOverview || details.overview.length <= MAX_LENGTH
@@ -180,7 +180,9 @@ const MoviesDetailsContent: React.FC = () => {
           </View>
         </ScrollView>
       ) : (
-        <ScrollView style={styles.overViewContainer}>
+        <ScrollView
+          style={styles.overViewContainer}
+          showsVerticalScrollIndicator={false}>
           <Text style={styles.Text}>Cast details will be displayed here.</Text>
           {/* Placeholder for cast details */}
         </ScrollView>

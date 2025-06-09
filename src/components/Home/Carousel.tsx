@@ -1,5 +1,15 @@
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+/* eslint-disable prettier/prettier */
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type CarouselProps = {
   title: string;
@@ -10,7 +20,15 @@ type CarouselProps = {
   }>;
 };
 
+type RootStackParamList = {
+  Movies: undefined | {screen: string; params?: any};
+  MoviesDetails: {movie: any};
+};
+
 const Carousel: React.FC<CarouselProps> = ({title, data}) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -20,12 +38,24 @@ const Carousel: React.FC<CarouselProps> = ({title, data}) => {
         data={data}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
-          <Image
-            style={styles.imageURl}
-            source={{
-              uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
-            }}
-          />
+          <TouchableOpacity onPress={() => {
+                    navigation.navigate('Movies', {
+                      screen: 'MoviesScreen',
+                    });
+                    setTimeout(() => {
+                      navigation.navigate('Movies', {
+                        screen: 'MoviesDetails',
+                        params: {movie: item},
+                      });
+                    }, 100); // pequeño delay para asegurar que el stack se monte
+                  }}>
+            <Image
+              style={styles.imageURl}
+              source={{
+                uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
+              }}
+            />
+          </TouchableOpacity>
         )}
       />
     </View>

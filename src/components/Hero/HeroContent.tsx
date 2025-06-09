@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type RootStackParamList = {
+  Movies: undefined | {screen: string; params?: any};
   MoviesDetails: {movie: any};
 };
 
