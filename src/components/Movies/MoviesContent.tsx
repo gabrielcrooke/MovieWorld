@@ -55,7 +55,7 @@ export const MoviesContent = () => {
     }
     return {
       text:
-        overview.length > 150 ? overview.substring(0, 150) + '...' : overview,
+        overview.length > 130 ? overview.substring(0, 130) + '...' : overview,
       isError: false,
     };
   };
@@ -123,7 +123,9 @@ export const MoviesContent = () => {
                       styles.voteAverage,
                     ]}>
                     <Icon name="star" size={14} color="#F7CD2E" />{' '}
-                    {item.vote_average.toFixed(1)}/10
+                    {typeof item.vote_average === 'number'
+                      ? `${item.vote_average.toFixed(1)}/10`
+                      : 'N/A'}
                   </Text>
                 </View>
                 <View>

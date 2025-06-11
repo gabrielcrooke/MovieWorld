@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 16,
+    marginBottom: 85,
   },
   pageButton: {
     backgroundColor: '#1f2937',

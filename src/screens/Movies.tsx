@@ -1,18 +1,13 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {MoviesContent} from '../components/Movies/MoviesContent';
+import {GradientBackground} from '../components/Common/GradientBackGround';
+import {StyleSheet} from 'react-native';
+GradientBackground;
 
 export const Movies = () => {
   return (
-    <View style={styles.container}>
+    <GradientBackground>
       <MoviesContent />
-    </View>
+    </GradientBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#111827',
-    flex: 1,
-  },
-});

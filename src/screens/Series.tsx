@@ -1,11 +1,12 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import React from 'react';
+import {GradientBackground} from '../components/Common/GradientBackGround';
 
 export const Series = () => {
   return (
-    <View style={styles.container}>
+    <GradientBackground>
       <Text style={styles.Text}>Series</Text>
-    </View>
+    </GradientBackground>
   );
 };
 

@@ -1,22 +1,18 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet} from 'react-native';
+import {GradientBackground} from '../Common/GradientBackGround';
 
 const LoadingIndicator = () => (
-  <View style={styles.container}>
-    <ActivityIndicator size="large" color="#fff" />
-    <Text style={styles.text}>Cargando...</Text>
-  </View>
+  <GradientBackground>
+    <ActivityIndicator size="large" color="#fff" style={styles.activityStyle} />
+  </GradientBackground>
 );
 
 const styles = StyleSheet.create({
-  container: {
+  activityStyle: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#111827',
-  },
-  text: {
-    color: '#fff',
   },
 });
 

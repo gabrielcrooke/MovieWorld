@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,12 +7,13 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {API_KEY} from '@env';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Divider from '../Common/Divider';
+import {GradientBackground} from '../Common/GradientBackGround';
+import CastCredits from '../cast/CastCredits';
 
 type RootStackParamList = {
   MoviesDetails: {movie: any};
@@ -37,11 +39,12 @@ type MovieDetails = {
   genres: {id: number; name: string}[];
   title: string;
 };
+
 const MoviesDetailsContent: React.FC = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'MoviesDetails'>>();
   const {movie} = route.params;
-  const [details, setDetails] = React.useState<MovieDetails | null>(null);
-  const [loading, setLoading] = React.useState(true);
+  const [details, setDetails] = useState<MovieDetails | null>(null);
+  const [loading, setLoading] = useState(true);
   const [showFullOverview, setShowFullOverview] = useState(false);
   const [activeTab, setActiveTab] = useState<'Details' | 'Preview'>('Details');
 
@@ -64,29 +67,27 @@ const MoviesDetailsContent: React.FC = () => {
 
   if (loading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <GradientBackground>
         <LoadingIndicator />
-      </View>
+      </GradientBackground>
     );
   }
 
   if (!details) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={styles.errorText}>Error loading movie details</Text>
-      </View>
+      <GradientBackground>
+        <View style={styles.centeredContainer}>
+          <Text style={styles.errorText}>Error loading movie details</Text>
+        </View>
+      </GradientBackground>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          marginBottom: 6,
-        }}>
+    <GradientBackground>
+      <View style={styles.tabRow}>
         <TouchableOpacity
-          style={{flex: 1, alignItems: 'center', paddingVertical: 12}}
+          style={styles.tabButton}
           onPress={() => setActiveTab('Details')}>
           <Text
             style={[
@@ -130,7 +131,12 @@ const MoviesDetailsContent: React.FC = () => {
       </View>
 
       {activeTab === 'Details' ? (
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: 85,
+            paddingHorizontal: 15,
+          }}>
           <View>
             <Text style={styles.Text}>
               {showFullOverview || details.overview.length <= MAX_LENGTH
@@ -180,25 +186,24 @@ const MoviesDetailsContent: React.FC = () => {
           </View>
         </ScrollView>
       ) : (
-        <ScrollView
-          style={styles.overViewContainer}
-          showsVerticalScrollIndicator={false}>
-          <Text style={styles.Text}>Cast details will be displayed here.</Text>
-          {/* Placeholder for cast details */}
-        </ScrollView>
+        <GradientBackground>
+          <CastCredits movieId={movie.id} />
+        </GradientBackground>
       )}
-    </View>
+    </GradientBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#111827',
-    flex: 1,
-    padding: 15,
+  tabRow: {
+    flexDirection: 'row',
+    marginBottom: 6,
+    paddingHorizontal: 15,
   },
-  overViewContainer: {
+  tabButton: {
     flex: 1,
+    alignItems: 'center',
+    paddingVertical: 12,
   },
   Text: {
     color: '#a6adba',
@@ -251,7 +256,6 @@ const styles = StyleSheet.create({
   },
   genreText: {
     color: '#fff',
-
     fontSize: 13,
   },
   errorText: {
@@ -260,6 +264,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 20,
+  },
+  centeredContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

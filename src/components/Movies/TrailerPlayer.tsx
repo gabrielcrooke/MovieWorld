@@ -4,6 +4,7 @@ import {Text} from 'react-native-paper';
 import {WebView} from 'react-native-webview';
 import {API_KEY} from '@env';
 import LoadingIndicator from '../Loading/LoadingIndicator';
+import {GradientBackground} from '../Common/GradientBackGround';
 
 type Props = {
   movie: any;
@@ -68,15 +69,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#111827',
   },
   trailerContainer: {
     width: VIDEO_WIDTH,
     height: VIDEO_HEIGHT,
-    backgroundColor: '#111827',
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
-    margin: 16,
+    margin: 8,
     overflow: 'hidden',
     // Sombra para iOS
     shadowColor: '#000',
@@ -103,7 +102,6 @@ const styles = StyleSheet.create({
   webview: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#111827',
   },
 });
 

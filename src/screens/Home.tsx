@@ -1,14 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-  SafeAreaView,
-  View,
-} from 'react-native';
+import {ScrollView, StatusBar} from 'react-native';
 import {MultiCarousel} from '../components/Home/MultiCarousel';
 import {HeroContent} from '../components/Hero/HeroContent';
 import LoadingIndicator from '../components/Loading/LoadingIndicator';
+import {GradientBackground} from '../components/Common/GradientBackGround';
 
 export const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -20,11 +15,11 @@ export const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <GradientBackground>
       {loading ? (
-        <View style={styles.loadingContainer}>
+        <GradientBackground>
           <LoadingIndicator />
-        </View>
+        </GradientBackground>
       ) : (
         <ScrollView>
           <StatusBar backgroundColor="#111827" />
@@ -32,19 +27,6 @@ export const Home = () => {
           <MultiCarousel />
         </ScrollView>
       )}
-    </SafeAreaView>
+    </GradientBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#111827',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#111827',
-  },
-});
