@@ -20,7 +20,7 @@ type MovieCast = {
   adult: boolean;
 };
 
-export default CastCredits = ({movieId}: CastCreditsProps) => {
+const CastCredits = ({movieId}: CastCreditsProps) => {
   const [cast, setCast] = React.useState<MovieCast[]>([]);
   const [loading, setLoading] = React.useState(true);
 
@@ -94,6 +94,12 @@ export default CastCredits = ({movieId}: CastCreditsProps) => {
                 ellipsizeMode="tail">
                 {item.known_for_department}
               </Text>
+              <Text
+                style={styles.subText}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {item.character}
+              </Text>
             </View>
           </View>
         )}
@@ -101,6 +107,8 @@ export default CastCredits = ({movieId}: CastCreditsProps) => {
     </GradientBackground>
   );
 };
+
+export default CastCredits;
 
 const styles = StyleSheet.create({
   imgContainer: {
@@ -129,6 +137,7 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     width: '100%',
+    marginBottom: 5,
   },
   Text: {
     color: 'white',

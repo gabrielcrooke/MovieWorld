@@ -4,7 +4,6 @@ import {Text} from 'react-native-paper';
 import {WebView} from 'react-native-webview';
 import {API_KEY} from '@env';
 import LoadingIndicator from '../Loading/LoadingIndicator';
-import {GradientBackground} from '../Common/GradientBackGround';
 
 type Props = {
   movie: any;
