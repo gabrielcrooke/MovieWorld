@@ -16,6 +16,7 @@ import {GradientBackground} from '../Common/GradientBackGround';
 import CastCredits from '../cast/CastCredits';
 import {RootStackParamList} from '../navigation/types';
 import {formatDate} from '../../utils/dateUtils';
+import {STRINGS} from '../../constans/strings';
 
 const MAX_LENGTH = 250;
 
@@ -83,7 +84,7 @@ const MoviesDetailsContent: React.FC = () => {
               styles.tabText,
               activeTab === 'Details' && styles.activeTabText,
             ]}>
-            Details
+            {STRINGS.DETAILS}
           </Text>
           {activeTab === 'Details' && (
             <View
@@ -104,7 +105,7 @@ const MoviesDetailsContent: React.FC = () => {
               styles.tabText,
               activeTab === 'Preview' && styles.activeTabText,
             ]}>
-            Cast
+            {STRINGS.CAST}
           </Text>
           {activeTab === 'Preview' && (
             <View
@@ -142,24 +143,32 @@ const MoviesDetailsContent: React.FC = () => {
           </View>
           <Divider />
           <View style={styles.individualInfoContainer}>
-            <Text style={styles.Text}>Status:</Text>
+            <Text style={styles.Text}>
+              {STRINGS.SECTION_MOVIES_TITLES.STATUS}
+            </Text>
             <Text style={styles.rightText}>{details.status}</Text>
           </View>
           <Divider />
           <View style={styles.individualInfoContainer}>
-            <Text style={styles.Text}>Release Date:</Text>
+            <Text style={styles.Text}>
+              {STRINGS.SECTION_MOVIES_TITLES.RELEASE_DATE}
+            </Text>
             <Text style={styles.rightText}>
               {formatDate(details.release_date)}
             </Text>
           </View>
           <Divider />
           <View style={styles.individualInfoContainer}>
-            <Text style={styles.Text}>Duration:</Text>
+            <Text style={styles.Text}>
+              {STRINGS.SECTION_MOVIES_TITLES.DURATION}
+            </Text>
             <Text style={styles.rightText}>{details.runtime} min</Text>
           </View>
           <Divider />
           <View style={styles.individualInfoContainer}>
-            <Text style={styles.Text}>Rating:</Text>
+            <Text style={styles.Text}>
+              {STRINGS.SECTION_MOVIES_TITLES.RATING}
+            </Text>
             <Text style={styles.rightText}>
               <Icon name="star" size={14} color="#F7CD2E" />{' '}
               {details.vote_average.toFixed(1)}/10

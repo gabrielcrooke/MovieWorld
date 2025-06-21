@@ -11,6 +11,7 @@ import {Movies} from '../../screens/Movies';
 import {MoviesDetails} from '../../screens/MoviesDetails';
 import {Series} from '../../screens/Series';
 import ActorsDetailsScreen from '../../screens/ActorsDetailsScreen';
+import {STRINGS} from '../../constans/strings';
 
 // Stacks
 const MoviesStack = createNativeStackNavigator();
@@ -71,7 +72,7 @@ export default function NavigationStack() {
                   styles.labelText,
                   {color: focused ? '#FFFFFF' : '#94a3b8'},
                 ]}>
-                Home
+                {STRINGS.HOME}
               </Text>
             ),
             tabBarIcon: ({focused}) => (
@@ -94,7 +95,7 @@ export default function NavigationStack() {
                   styles.labelText,
                   {color: focused ? '#FFFFFF' : '#94a3b8'},
                 ]}>
-                Movies
+                {STRINGS.MOVIES}
               </Text>
             ),
             tabBarIcon: ({focused}) => (
@@ -117,7 +118,7 @@ export default function NavigationStack() {
                   styles.labelText,
                   {color: focused ? '#fff' : '#94a3b8'},
                 ]}>
-                Series
+                {STRINGS.SERIES}
               </Text>
             ),
             tabBarIcon: ({focused}) => (

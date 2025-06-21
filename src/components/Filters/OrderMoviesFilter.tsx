@@ -1,6 +1,7 @@
 import React from 'react';
 import {Picker} from '@react-native-picker/picker';
 import {View, StyleSheet} from 'react-native';
+import {STRINGS} from '../../constans/strings';
 
 interface OrderMoviesFilterProps {
   selectedOrder: string;
@@ -8,10 +9,10 @@ interface OrderMoviesFilterProps {
 }
 
 const orderOptions = [
-  {label: 'Most popular', value: 'most_popular'},
-  {label: 'Less popular', value: 'less_popular'},
-  {label: 'Top rated', value: 'top_rated'},
-  {label: 'Lowest rated', value: 'lowest_rated'},
+  {label: STRINGS.MOST_POPULAR, value: 'most_popular'},
+  {label: STRINGS.LESS_POPULAR, value: 'less_popular'},
+  {label: STRINGS.TOP_RATED, value: 'top_rated'},
+  {label: STRINGS.LOWEST_RATED, value: 'lowest_rated'},
 ];
 
 export const OrderMoviesFilter: React.FC<OrderMoviesFilterProps> = ({

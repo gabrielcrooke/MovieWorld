@@ -3,6 +3,7 @@ import React from 'react';
 import Carousel from './Carousel';
 import {useFetchData} from '../../hooks/useFetchData';
 import {useCurrentDate} from '../../hooks/useCurrentDate';
+import {STRINGS} from '../../constans/strings';
 
 export const CarouselUpcomingReleases = () => {
   const date = useCurrentDate();
@@ -16,7 +17,7 @@ export const CarouselUpcomingReleases = () => {
 
   return (
     <View>
-      <Carousel title="Upcoming Releases" data={data} />
+      <Carousel title={STRINGS.UPCOMING_RELEASES} data={data} />
       {error && (
         // eslint-disable-next-line react-native/no-inline-styles
         <Text style={{color: 'red'}}>

@@ -13,6 +13,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {STRINGS} from '../../constans/strings';
 
 type RootStackParamList = {
   Movies: undefined | {screen: string; params?: any};
@@ -105,7 +106,7 @@ export const HeroContent = () => {
                       color="#F7CD2E"
                       style={styles.icon}
                     />{' '}
-                    Play
+                    {STRINGS.PLAY}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -130,7 +131,7 @@ export const HeroContent = () => {
                       color="#F7CD2E"
                       style={styles.icon}
                     />{' '}
-                    More Info
+                    {STRINGS.MORE_INFO}
                   </Text>
                 </TouchableOpacity>
               </View>
