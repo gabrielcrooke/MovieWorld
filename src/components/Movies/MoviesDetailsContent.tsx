@@ -15,17 +15,9 @@ import Divider from '../Common/Divider';
 import {GradientBackground} from '../Common/GradientBackGround';
 import CastCredits from '../cast/CastCredits';
 import {RootStackParamList} from '../navigation/types';
+import {formatDate} from '../../utils/dateUtils';
 
 const MAX_LENGTH = 250;
-
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-};
 
 type MovieDetails = {
   overview: string;
@@ -149,24 +141,24 @@ const MoviesDetailsContent: React.FC = () => {
             </Text>
           </View>
           <Divider />
-          <View style={styles.statusContainer}>
+          <View style={styles.individualInfoContainer}>
             <Text style={styles.Text}>Status:</Text>
             <Text style={styles.rightText}>{details.status}</Text>
           </View>
           <Divider />
-          <View style={styles.releaseDateContainer}>
+          <View style={styles.individualInfoContainer}>
             <Text style={styles.Text}>Release Date:</Text>
             <Text style={styles.rightText}>
               {formatDate(details.release_date)}
             </Text>
           </View>
           <Divider />
-          <View style={styles.durationContainer}>
+          <View style={styles.individualInfoContainer}>
             <Text style={styles.Text}>Duration:</Text>
             <Text style={styles.rightText}>{details.runtime} min</Text>
           </View>
           <Divider />
-          <View style={styles.ratingContainer}>
+          <View style={styles.individualInfoContainer}>
             <Text style={styles.Text}>Rating:</Text>
             <Text style={styles.rightText}>
               <Icon name="star" size={14} color="#F7CD2E" />{' '}
@@ -223,19 +215,7 @@ const styles = StyleSheet.create({
   activeTabText: {
     color: '#fff',
   },
-  statusContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  releaseDateContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  durationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  ratingContainer: {
+  individualInfoContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
