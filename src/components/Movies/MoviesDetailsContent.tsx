@@ -1,12 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {API_KEY} from '@env';
 import LoadingIndicator from '../Loading/LoadingIndicator';
@@ -74,7 +68,7 @@ const MoviesDetailsContent: React.FC = () => {
   }
 
   return (
-    <GradientBackground>
+    <>
       <View style={styles.tabRow}>
         <TouchableOpacity
           style={styles.tabButton}
@@ -121,12 +115,7 @@ const MoviesDetailsContent: React.FC = () => {
       </View>
 
       {activeTab === 'Details' ? (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingBottom: 85,
-            paddingHorizontal: 15,
-          }}>
+        <View style={styles.container}>
           <View>
             <Text style={styles.Text}>
               {showFullOverview || details.overview.length <= MAX_LENGTH
@@ -182,17 +171,20 @@ const MoviesDetailsContent: React.FC = () => {
               </View>
             ))}
           </View>
-        </ScrollView>
+        </View>
       ) : (
-        <GradientBackground>
+        <>
           <CastCredits movieId={movie.id} />
-        </GradientBackground>
+        </>
       )}
-    </GradientBackground>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 15,
+  },
   tabRow: {
     flexDirection: 'row',
     marginBottom: 6,

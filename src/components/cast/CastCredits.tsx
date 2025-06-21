@@ -75,14 +75,14 @@ const CastCredits = ({movieId}: CastCreditsProps) => {
   }
 
   return (
-    <GradientBackground>
+    <>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={cast}
+        scrollEnabled={false}
         numColumns={2}
         keyExtractor={item => item.id.toString()}
         columnWrapperStyle={{justifyContent: 'space-between'}}
-        contentContainerStyle={{paddingBottom: 85}}
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.imgContainer}
@@ -122,7 +122,7 @@ const CastCredits = ({movieId}: CastCreditsProps) => {
           </TouchableOpacity>
         )}
       />
-    </GradientBackground>
+    </>
   );
 };
 

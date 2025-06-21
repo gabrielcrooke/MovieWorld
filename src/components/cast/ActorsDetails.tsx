@@ -121,7 +121,11 @@ const ActorsDetails = () => {
         <View style={styles.individualInfoContainer}>
           <Text>{STRINGS.SECTION_TITLES.PLACE_OF_BIRTH}</Text>
           {actorDetails.place_of_birth ? (
-            <Text style={styles.rightText}>{actorDetails.place_of_birth}</Text>
+            <Text style={styles.rightText}>
+              {actorDetails.place_of_birth.length <= 22
+                ? actorDetails.place_of_birth
+                : actorDetails.place_of_birth.substring(0, 22) + '...'}
+            </Text>
           ) : (
             <Text style={styles.errorText}>
               {STRINGS.DEFAULT_ERROR_MESSAGE}

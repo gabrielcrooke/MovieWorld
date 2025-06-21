@@ -21,6 +21,7 @@ export const STRINGS = {
   LOWEST_RATED: 'Lowest rated',
   UPCOMING_RELEASES: 'Upcoming Releases',
   RECENT_RELEASES: 'Recent Releases',
+  SIMILAR_MOVIES: 'Similar movies',
   SECTION_TITLES: {
     BIRTHDAY: 'Birthday',
     PLACE_OF_BIRTH: 'Place of birth',
