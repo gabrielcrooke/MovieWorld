@@ -75,54 +75,46 @@ const CastCredits = ({movieId}: CastCreditsProps) => {
   }
 
   return (
-    <>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={cast}
-        scrollEnabled={false}
-        numColumns={2}
-        keyExtractor={item => item.id.toString()}
-        columnWrapperStyle={{justifyContent: 'space-between'}}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            style={styles.imgContainer}
-            onPress={() => {
-              navigation.navigate('ActorsDetails', {actorId: item.id});
-            }}>
-            <View style={styles.profileImageContainer}>
-              <Image
-                style={styles.profileImage}
-                source={
-                  item.profile_path
-                    ? {
-                        uri: `https://image.tmdb.org/t/p/w400/${item.profile_path}`,
-                      }
-                    : require('../../assets/images/no-image.png')
-                }
-                resizeMode="cover"
-              />
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.Text} numberOfLines={1} ellipsizeMode="tail">
-                {item.original_name}
-              </Text>
-              <Text
-                style={styles.subText}
-                numberOfLines={1}
-                ellipsizeMode="tail">
-                {item.known_for_department}
-              </Text>
-              <Text
-                style={styles.subText}
-                numberOfLines={1}
-                ellipsizeMode="tail">
-                {item.character}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    </>
+    <FlatList
+      showsVerticalScrollIndicator={false}
+      data={cast}
+      scrollEnabled={false}
+      numColumns={2}
+      keyExtractor={item => item.id.toString()}
+      columnWrapperStyle={{justifyContent: 'space-between'}}
+      renderItem={({item}) => (
+        <TouchableOpacity
+          style={styles.imgContainer}
+          onPress={() => {
+            navigation.navigate('ActorsDetails', {actorId: item.id});
+          }}>
+          <View style={styles.profileImageContainer}>
+            <Image
+              style={styles.profileImage}
+              source={
+                item.profile_path
+                  ? {
+                      uri: `https://image.tmdb.org/t/p/w400/${item.profile_path}`,
+                    }
+                  : require('../../assets/images/no-image.png')
+              }
+              resizeMode="cover"
+            />
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.Text} numberOfLines={1} ellipsizeMode="tail">
+              {item.original_name}
+            </Text>
+            <Text style={styles.subText} numberOfLines={1} ellipsizeMode="tail">
+              {item.known_for_department}
+            </Text>
+            <Text style={styles.subText} numberOfLines={1} ellipsizeMode="tail">
+              {item.character}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
   );
 };
 

@@ -173,9 +173,7 @@ const MoviesDetailsContent: React.FC = () => {
           </View>
         </View>
       ) : (
-        <>
-          <CastCredits movieId={movie.id} />
-        </>
+        <CastCredits movieId={movie.id} />
       )}
     </>
   );
