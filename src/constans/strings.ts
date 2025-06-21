@@ -10,7 +10,7 @@ export const STRINGS = {
   PLAY: 'Play',
   ACTION: 'Action',
   COMEDY: 'Comedy',
-  DRAMA: 'DRAMA',
+  DRAMA: 'Drama',
   HORROR: 'Horror',
   ROMANCE: 'Romance',
   TV_MOVIE: 'TV Movie',

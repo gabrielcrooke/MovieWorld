@@ -18,6 +18,12 @@ type CarouselProps = {
     poster_path: string;
     [key: string]: any;
   }>;
+  imageSize?: {
+    width: number;
+    height: number;
+  };
+  titleStyle?: object;
+  containerStyle?: object;
 };
 
 type RootStackParamList = {
@@ -25,13 +31,19 @@ type RootStackParamList = {
   MoviesDetails: {movie: any};
 };
 
-const Carousel: React.FC<CarouselProps> = ({title, data}) => {
+const Carousel: React.FC<CarouselProps> = ({
+  title,
+  data,
+  imageSize = {width: 140, height: 220},
+  titleStyle,
+  containerStyle,
+}) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+    <View style={[styles.container, containerStyle]}>
+      <Text style={[styles.title, titleStyle]}>{title}</Text>
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -51,7 +63,13 @@ const Carousel: React.FC<CarouselProps> = ({title, data}) => {
               }, 100); // pequeño delay para asegurar que el stack se monte
             }}>
             <Image
-              style={styles.imageURl}
+              style={[
+                styles.imageURl,
+                {
+                  width: imageSize.width,
+                  height: imageSize.height,
+                },
+              ]}
               source={{
                 uri: `https://image.tmdb.org/t/p/w400/${item.poster_path}`,
               }}
@@ -76,8 +94,6 @@ const styles = StyleSheet.create({
   imageURl: {
     marginTop: 12,
     margin: 6,
-    width: 140,
-    height: 220,
     borderRadius: 10,
     shadowOffset: {
       width: 1,
