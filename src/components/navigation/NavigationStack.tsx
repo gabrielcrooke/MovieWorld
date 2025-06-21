@@ -10,6 +10,7 @@ import {Home} from '../../screens/Home';
 import {Movies} from '../../screens/Movies';
 import {MoviesDetails} from '../../screens/MoviesDetails';
 import {Series} from '../../screens/Series';
+import ActorsDetailsScreen from '../../screens/ActorsDetailsScreen';
 
 // Stacks
 const MoviesStack = createNativeStackNavigator();
@@ -24,6 +25,11 @@ function MoviesStackScreen() {
       <MoviesStack.Screen
         name="MoviesDetails"
         component={MoviesDetails}
+        options={{headerShown: false}}
+      />
+      <MoviesStack.Screen
+        name="ActorsDetails"
+        component={ActorsDetailsScreen}
         options={{headerShown: false}}
       />
     </MoviesStack.Navigator>

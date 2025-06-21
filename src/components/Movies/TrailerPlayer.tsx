@@ -5,14 +5,17 @@ import {WebView} from 'react-native-webview';
 import {API_KEY} from '@env';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 
-type Props = {
-  movie: any;
+type TrailerPlayerProps = {
+  movie: {
+    id: number;
+    title: string;
+  };
 };
 
 const {width: screenWidth} = Dimensions.get('window');
 const VIDEO_WIDTH = Math.min(screenWidth - 15, 400);
 const VIDEO_HEIGHT = (VIDEO_WIDTH * 9) / 16;
-const TrailerPlayer: React.FC<Props> = ({movie}) => {
+const TrailerPlayer: React.FC<TrailerPlayerProps> = ({movie}) => {
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 

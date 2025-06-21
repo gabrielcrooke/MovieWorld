@@ -14,10 +14,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Divider from '../Common/Divider';
 import {GradientBackground} from '../Common/GradientBackGround';
 import CastCredits from '../cast/CastCredits';
-
-type RootStackParamList = {
-  MoviesDetails: {movie: any};
-};
+import {RootStackParamList} from '../navigation/types';
 
 const MAX_LENGTH = 250;
 

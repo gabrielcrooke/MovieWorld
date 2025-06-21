@@ -1,9 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import {GradientBackground} from '../Common/GradientBackGround';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import {API_KEY} from '@env';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../navigation/types';
 
 type CastCreditsProps = {
   movieId: number;
@@ -23,6 +33,10 @@ type MovieCast = {
 const CastCredits = ({movieId}: CastCreditsProps) => {
   const [cast, setCast] = React.useState<MovieCast[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<RootStackParamList, 'ActorsDetails'>
+    >();
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -70,7 +84,11 @@ const CastCredits = ({movieId}: CastCreditsProps) => {
         columnWrapperStyle={{justifyContent: 'space-between'}}
         contentContainerStyle={{paddingBottom: 85}}
         renderItem={({item}) => (
-          <View style={styles.imgContainer}>
+          <TouchableOpacity
+            style={styles.imgContainer}
+            onPress={() => {
+              navigation.navigate('ActorsDetails', {actorId: item.id});
+            }}>
             <View style={styles.profileImageContainer}>
               <Image
                 style={styles.profileImage}
@@ -101,7 +119,7 @@ const CastCredits = ({movieId}: CastCreditsProps) => {
                 {item.character}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </GradientBackground>

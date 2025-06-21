@@ -15,10 +15,7 @@ import {GenreMoviesFilter} from '../Filters/GenreMoviesFilter';
 import {OrderMoviesFilter} from '../Filters/OrderMoviesFilter';
 import {useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  MoviesDetails: {movie: any};
-};
+import {RootStackParamList} from '../navigation/types';
 
 export const MoviesContent = () => {
   const [page, setPage] = useState(1);
