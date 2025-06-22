@@ -25,7 +25,12 @@ export function useFetchData(url: string, deps: any[] = []) {
             Authorization: TMDB_AUTH_TOKEN,
           },
         });
-        setData(response.data.results ?? response.data.genres ?? []); // Manejar diferentes tipos de respuesta
+        setData(
+          response.data.results ??
+            response.data.genres ??
+            response.data.cast ??
+            [],
+        ); // Manejar diferentes tipos de respuesta
       } catch (err: any) {
         setError(err?.message ?? 'Error desconocido');
         setData([]);

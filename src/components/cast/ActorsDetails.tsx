@@ -38,7 +38,7 @@ const ActorsDetails = () => {
         );
         const data = await response.json();
         setActorDetails(data);
-        console.log('actorDetails data:', data);
+        /**console.log('actorDetails data:', data);**/
       } catch {
         setActorDetails(null);
       } finally {
@@ -67,9 +67,9 @@ const ActorsDetails = () => {
   }
 
   return (
-    <GradientBackground>
+    <>
       <ScrollView
-        contentContainerStyle={{paddingBottom: 85, paddingHorizontal: 15}}
+        contentContainerStyle={{paddingBottom: 15, paddingHorizontal: 15}}
         showsVerticalScrollIndicator={false}>
         <Text style={styles.actorNameText}>{actorDetails.name}</Text>
         <View style={styles.imageContainer}>
@@ -148,7 +148,7 @@ const ActorsDetails = () => {
           </Text>
         </View>
       </ScrollView>
-    </GradientBackground>
+    </>
   );
 };
 

@@ -40,6 +40,7 @@ const MoviesDetailsContent: React.FC = () => {
         );
         const data = await response.json();
         setDetails(data);
+        /**console.log('Data', data);**/
       } catch {
         setDetails(null);
       } finally {

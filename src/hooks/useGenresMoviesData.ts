@@ -4,7 +4,7 @@ import {TMDB_AUTH_TOKEN} from '@env';
 
 const baseURL = 'https://api.themoviedb.org/3';
 
-export function useGenresMoviesData(genres: {id: number, title: string}[]) {
+export function useGenresMoviesData(genres: {id: number; title: string}[]) {
   const [genreData, setGenreData] = useState<{[key: string]: any[]}>({});
   const [error, setError] = useState<string | null>(null);
 
