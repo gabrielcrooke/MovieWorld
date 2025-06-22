@@ -10,6 +10,7 @@ import LoadingIndicator from '../Loading/LoadingIndicator';
 import Divider from '../Common/Divider';
 import {formatDate} from '../../utils/dateUtils';
 import {STRINGS} from '../../constans/strings';
+import PopularityStars from './PopularityStarts';
 
 const MAX_LENGTH = 250;
 
@@ -67,88 +68,79 @@ const ActorsDetails = () => {
   }
 
   return (
-    <>
-      <ScrollView
-        contentContainerStyle={{paddingBottom: 15, paddingHorizontal: 15}}
-        showsVerticalScrollIndicator={false}>
-        <Text style={styles.actorNameText}>{actorDetails.name}</Text>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.imageURl}
-            source={
-              actorDetails.profile_path
-                ? {
-                    uri: `https://image.tmdb.org/t/p/w400/${actorDetails.profile_path}`,
-                  }
-                : require('../../assets/images/no-image.png')
-            }
-          />
-        </View>
-        <View style={styles.textContainer}>
-          {actorDetails.biography ? (
-            <Text>
-              {showFullBiography || actorDetails.biography.length <= MAX_LENGTH
-                ? actorDetails.biography
-                : actorDetails.biography.substring(0, 250) + '...'}
-              {actorDetails.biography.length > MAX_LENGTH && (
-                <Text
-                  style={styles.readMoreText}
-                  onPress={() => setShowFullBiography(!showFullBiography)}>
-                  {showFullBiography ? STRINGS.HIDE : STRINGS.READ_MORE}
-                </Text>
-              )}
-            </Text>
-          ) : (
-            <Text style={styles.errorText}>
-              {STRINGS.DEFAULT_ERROR_MESSAGE}
-            </Text>
-          )}
-        </View>
-        <Divider />
-        <View style={styles.individualInfoContainer}>
-          <Text>{STRINGS.SECTION_TITLES.BIRTHDAY}</Text>
-          {actorDetails.birthday ? (
-            <Text style={styles.rightText}>
-              {formatDate(actorDetails.birthday)}
-            </Text>
-          ) : (
-            <Text style={styles.errorText}>
-              {STRINGS.DEFAULT_ERROR_MESSAGE}
-            </Text>
-          )}
-        </View>
-        <Divider />
-        <View style={styles.individualInfoContainer}>
-          <Text>{STRINGS.SECTION_TITLES.PLACE_OF_BIRTH}</Text>
-          {actorDetails.place_of_birth ? (
-            <Text style={styles.rightText}>
-              {actorDetails.place_of_birth.length <= 22
-                ? actorDetails.place_of_birth
-                : actorDetails.place_of_birth.substring(0, 22) + '...'}
-            </Text>
-          ) : (
-            <Text style={styles.errorText}>
-              {STRINGS.DEFAULT_ERROR_MESSAGE}
-            </Text>
-          )}
-        </View>
-        <Divider />
-        <View style={styles.individualInfoContainer}>
-          <Text>{STRINGS.SECTION_TITLES.OCCUPATION}</Text>
-          <Text style={styles.rightText}>
-            {actorDetails.known_for_department}
+    <ScrollView
+      contentContainerStyle={{paddingBottom: 15, paddingHorizontal: 15}}
+      showsVerticalScrollIndicator={false}>
+      <Text style={styles.actorNameText}>{actorDetails.name}</Text>
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.imageURl}
+          source={
+            actorDetails.profile_path
+              ? {
+                  uri: `https://image.tmdb.org/t/p/w400/${actorDetails.profile_path}`,
+                }
+              : require('../../assets/images/no-image.png')
+          }
+        />
+      </View>
+      <View style={styles.textContainer}>
+        {actorDetails.biography ? (
+          <Text>
+            {showFullBiography || actorDetails.biography.length <= MAX_LENGTH
+              ? actorDetails.biography
+              : actorDetails.biography.substring(0, 250) + '...'}
+            {actorDetails.biography.length > MAX_LENGTH && (
+              <Text
+                style={styles.readMoreText}
+                onPress={() => setShowFullBiography(!showFullBiography)}>
+                {showFullBiography ? STRINGS.HIDE : STRINGS.READ_MORE}
+              </Text>
+            )}
           </Text>
-        </View>
-        <Divider />
-        <View style={styles.individualInfoContainer}>
-          <Text>{STRINGS.SECTION_TITLES.POPULARITY}</Text>
+        ) : (
+          <Text style={styles.errorText}>{STRINGS.DEFAULT_ERROR_MESSAGE}</Text>
+        )}
+      </View>
+      <Divider />
+      <View style={styles.individualInfoContainer}>
+        <Text>{STRINGS.SECTION_TITLES.BIRTHDAY}</Text>
+        {actorDetails.birthday ? (
           <Text style={styles.rightText}>
-            <Icon name="star" size={14} color="#F7CD2E" />{' '}
-            {actorDetails.popularity.toFixed(1)}/10
+            {formatDate(actorDetails.birthday)}
           </Text>
-        </View>
-      </ScrollView>
-    </>
+        ) : (
+          <Text style={styles.errorText}>{STRINGS.DEFAULT_ERROR_MESSAGE}</Text>
+        )}
+      </View>
+      <Divider />
+      <View style={styles.individualInfoContainer}>
+        <Text>{STRINGS.SECTION_TITLES.PLACE_OF_BIRTH}</Text>
+        {actorDetails.place_of_birth ? (
+          <Text style={styles.rightText}>
+            {actorDetails.place_of_birth.length <= 22
+              ? actorDetails.place_of_birth
+              : actorDetails.place_of_birth.substring(0, 22) + '...'}
+          </Text>
+        ) : (
+          <Text style={styles.errorText}>{STRINGS.DEFAULT_ERROR_MESSAGE}</Text>
+        )}
+      </View>
+      <Divider />
+      <View style={styles.individualInfoContainer}>
+        <Text>{STRINGS.SECTION_TITLES.OCCUPATION}</Text>
+        <Text style={styles.rightText}>
+          {actorDetails.known_for_department}
+        </Text>
+      </View>
+      <Divider />
+      <View style={styles.individualInfoContainer}>
+        <Text>{STRINGS.SECTION_TITLES.POPULARITY}</Text>
+        <Text style={styles.rightText}>
+          <PopularityStars popularity={actorDetails.popularity} />{' '}
+        </Text>
+      </View>
+    </ScrollView>
   );
 };
 

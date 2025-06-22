@@ -26,7 +26,7 @@ export const STRINGS = {
     BIRTHDAY: 'Birthday',
     PLACE_OF_BIRTH: 'Place of birth',
     OCCUPATION: 'Occupation',
-    POPULARITY: 'Popularity',
+    POPULARITY: 'Recent Popularity',
   },
   SECTION_MOVIES_TITLES: {
     STATUS: 'Status',
