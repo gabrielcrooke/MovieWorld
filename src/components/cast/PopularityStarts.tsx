@@ -24,7 +24,7 @@ const PopularityStars: React.FC<Props> = ({popularity}) => {
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
       {[...Array(starCount)].map((_, i) => (
         <Icon
-          key={i}
+          key={`star-${popularity}-${i}`}
           name="star"
           size={14}
           color="#F7CD2E"

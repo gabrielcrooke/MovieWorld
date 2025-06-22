@@ -5,7 +5,6 @@ import {GradientBackground} from '../Common/GradientBackGround';
 import {API_KEY} from '@env';
 import {useRoute, RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/types';
-import Icon from 'react-native-vector-icons/AntDesign';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import Divider from '../Common/Divider';
 import {formatDate} from '../../utils/dateUtils';
