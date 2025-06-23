@@ -98,7 +98,7 @@ export const ContentList: React.FC<ContentListProps> = ({
                 />
                 <View style={styles.headerMovieContainer}>
                   <Text style={styles.headerMovieContainerText}>
-                    {getDate(item) || (
+                    {getDate(item) ?? (
                       <Text style={styles.errorText}>Not available</Text>
                     )}
                   </Text>
