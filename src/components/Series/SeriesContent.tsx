@@ -19,7 +19,7 @@ import {RootStackParamList} from '../navigation/types';
 import {buildUrl} from '../../utils/buildUrl';
 import {formatOverview} from '../../utils/formatOverview';
 
-export const MoviesContent = () => {
+export const SeriesContent = () => {
   const [page, setPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState<string | undefined>('');
   const [selectedOrder, setSelectedOrder] = useState<string>('most_popular');
@@ -27,7 +27,7 @@ export const MoviesContent = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const url = buildUrl({
-    type: 'movie',
+    type: 'tv',
     page,
     selectedOrder: selectedOrder as any,
     selectedGenre,
@@ -86,10 +86,10 @@ export const MoviesContent = () => {
                 />
                 <View style={styles.headerMovieContainer}>
                   <Text style={styles.headerMovieContainerText}>
-                    {!item.release_date || item.release_date === '' ? (
+                    {!item.first_air_date || item.first_air_date === '' ? (
                       <Text style={styles.errorText}>Not available</Text>
                     ) : (
-                      item.release_date
+                      item.first_air_date
                     )}{' '}
                   </Text>
                   <Text
