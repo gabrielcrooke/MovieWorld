@@ -1,11 +1,15 @@
 import React from 'react';
 import {GradientBackground} from '../components/Common/GradientBackGround';
-import {SeriesContent} from '../components/Series/SeriesContent';
-
+import {ContentList} from '../components/Common/ContentList';
 export const Series = () => {
   return (
     <GradientBackground>
-      <SeriesContent />
+      <ContentList
+        type="tv"
+        navigateTo="MoviesDetails"
+        getTitle={item => item.name}
+        getDate={item => item.first_air_date}
+      />
     </GradientBackground>
   );
 };

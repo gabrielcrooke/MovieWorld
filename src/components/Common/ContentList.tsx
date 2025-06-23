@@ -1,3 +1,5 @@
+// components/ContentList.tsx
+
 import {
   FlatList,
   Image,
@@ -19,7 +21,19 @@ import {RootStackParamList} from '../navigation/types';
 import {buildUrl} from '../../utils/buildUrl';
 import {formatOverview} from '../../utils/formatOverview';
 
-export const SeriesContent = () => {
+interface ContentListProps {
+  type: 'movie' | 'tv';
+  getTitle: (item: any) => string;
+  getDate: (item: any) => string;
+  navigateTo: keyof RootStackParamList;
+}
+
+export const ContentList: React.FC<ContentListProps> = ({
+  type,
+  getTitle,
+  getDate,
+  navigateTo,
+}) => {
   const [page, setPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState<string | undefined>('');
   const [selectedOrder, setSelectedOrder] = useState<string>('most_popular');
@@ -27,7 +41,7 @@ export const SeriesContent = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const url = buildUrl({
-    type: 'tv',
+    type,
     page,
     selectedOrder: selectedOrder as any,
     selectedGenre,
@@ -71,9 +85,7 @@ export const SeriesContent = () => {
           return (
             <View style={styles.imgContainer}>
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('MoviesDetails', {movie: item})
-                }>
+                onPress={() => navigation.navigate(navigateTo, {movie: item})}>
                 <Image
                   style={styles.imageURl}
                   source={
@@ -86,11 +98,9 @@ export const SeriesContent = () => {
                 />
                 <View style={styles.headerMovieContainer}>
                   <Text style={styles.headerMovieContainerText}>
-                    {!item.first_air_date || item.first_air_date === '' ? (
+                    {getDate(item) || (
                       <Text style={styles.errorText}>Not available</Text>
-                    ) : (
-                      item.first_air_date
-                    )}{' '}
+                    )}
                   </Text>
                   <Text
                     style={[
@@ -103,15 +113,11 @@ export const SeriesContent = () => {
                       : 'N/A'}
                   </Text>
                 </View>
-                <View>
-                  <Text style={styles.movieTitle}>{item.title}</Text>
-                </View>
-                <View>
-                  <Text
-                    style={!isError ? styles.movieOverview : styles.errorText}>
-                    {text}
-                  </Text>
-                </View>
+                <Text style={styles.movieTitle}>{getTitle(item)}</Text>
+                <Text
+                  style={!isError ? styles.movieOverview : styles.errorText}>
+                  {text}
+                </Text>
               </TouchableOpacity>
             </View>
           );
@@ -129,6 +135,7 @@ export const SeriesContent = () => {
   );
 };
 
+// (Reutiliza los mismos styles que tenías antes, sin cambio)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -138,12 +145,6 @@ const styles = StyleSheet.create({
   },
   pickersContainer: {
     flexDirection: 'row',
-  },
-  title: {
-    fontSize: 25,
-    margin: 6,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
   },
   imgContainer: {
     flexGrow: 1,
@@ -161,13 +162,6 @@ const styles = StyleSheet.create({
     width: 170,
     height: 220,
     borderRadius: 10,
-    shadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    shadowColor: '#fff',
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
   },
   headerMovieContainer: {
     flexDirection: 'row',

@@ -1,11 +1,16 @@
 import React from 'react';
-import {MoviesContent} from '../components/Movies/MoviesContent';
 import {GradientBackground} from '../components/Common/GradientBackGround';
+import {ContentList} from '../components/Common/ContentList';
 
 export const Movies = () => {
   return (
     <GradientBackground>
-      <MoviesContent />
+      <ContentList
+        type="movie"
+        navigateTo="MoviesDetails"
+        getTitle={item => item.title}
+        getDate={item => item.release_date}
+      />
     </GradientBackground>
   );
 };
