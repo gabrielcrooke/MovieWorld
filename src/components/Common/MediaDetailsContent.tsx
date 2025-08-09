@@ -1,33 +1,39 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {RouteProp, useRoute} from '@react-navigation/native';
 import {API_KEY} from '@env';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Divider from '../Common/Divider';
 import {GradientBackground} from '../Common/GradientBackGround';
 import CastCredits from '../cast/CastCredits';
-import {RootStackParamList} from '../navigation/types';
 import {formatDate} from '../../utils/dateUtils';
 import {STRINGS} from '../../constans/strings';
 
 const MAX_LENGTH = 250;
 
-type MovieDetails = {
-  overview: string;
-  status: string;
-  release_date: string;
-  runtime: number;
-  vote_average: number;
-  genres: {id: number; name: string}[];
-  title: string;
+type Genre = {id: number; name: string};
+
+type Props = {
+  id: number;
+  type: 'movie' | 'tv'; // tipo para controlar el endpoint// título opcional para el componente
 };
 
-const MoviesDetailsContent: React.FC = () => {
-  const route = useRoute<RouteProp<RootStackParamList, 'MoviesDetails'>>();
-  const {movie} = route.params;
-  const [details, setDetails] = useState<MovieDetails | null>(null);
+type MediaDetails = {
+  overview: string;
+  status: string;
+  release_date?: string;
+  first_air_date?: string;
+  runtime?: number;
+  episode_run_time?: number[];
+  vote_average: number;
+  genres: Genre[];
+  title?: string;
+  name?: string;
+  last_air_date?: string;
+};
+
+const MediaDetailsContent: React.FC<Props> = ({id, type}) => {
+  const [details, setDetails] = useState<MediaDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [showFullOverview, setShowFullOverview] = useState(false);
   const [activeTab, setActiveTab] = useState<'Details' | 'Preview'>('Details');
@@ -36,11 +42,11 @@ const MoviesDetailsContent: React.FC = () => {
     const fetchDetails = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&language=en-US`,
+          `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&language=en-US`,
         );
         const data = await response.json();
         setDetails(data);
-        /**console.log('Data', data);**/
+        console.log(data);
       } catch {
         setDetails(null);
       } finally {
@@ -48,7 +54,7 @@ const MoviesDetailsContent: React.FC = () => {
       }
     };
     fetchDetails();
-  }, [movie.id]);
+  }, [id, type]);
 
   if (loading) {
     return (
@@ -62,11 +68,13 @@ const MoviesDetailsContent: React.FC = () => {
     return (
       <GradientBackground>
         <View style={styles.centeredContainer}>
-          <Text style={styles.errorText}>Error loading movie details</Text>
+          <Text style={styles.errorText}>Error loading details</Text>
         </View>
       </GradientBackground>
     );
   }
+
+  const releaseDate = details.release_date || details.first_air_date || 'N/A';
 
   return (
     <>
@@ -81,19 +89,10 @@ const MoviesDetailsContent: React.FC = () => {
             ]}>
             {STRINGS.DETAILS}
           </Text>
-          {activeTab === 'Details' && (
-            <View
-              style={{
-                height: 2,
-                backgroundColor: '#fff',
-                width: '100%',
-                marginTop: 4,
-              }}
-            />
-          )}
+          {activeTab === 'Details' && <View style={styles.tabUnderline} />}
         </TouchableOpacity>
         <TouchableOpacity
-          style={{flex: 1, alignItems: 'center', paddingVertical: 12}}
+          style={styles.tabButton}
           onPress={() => setActiveTab('Preview')}>
           <Text
             style={[
@@ -102,35 +101,24 @@ const MoviesDetailsContent: React.FC = () => {
             ]}>
             {STRINGS.CAST}
           </Text>
-          {activeTab === 'Preview' && (
-            <View
-              style={{
-                height: 2,
-                backgroundColor: '#fff',
-                width: '100%',
-                marginTop: 4,
-              }}
-            />
-          )}
+          {activeTab === 'Preview' && <View style={styles.tabUnderline} />}
         </TouchableOpacity>
       </View>
 
       {activeTab === 'Details' ? (
         <View style={styles.container}>
-          <View>
-            <Text style={styles.Text}>
-              {showFullOverview || details.overview.length <= MAX_LENGTH
-                ? details.overview
-                : details.overview.substring(0, MAX_LENGTH) + '...'}
-              {details.overview.length > MAX_LENGTH && (
-                <Text
-                  style={styles.overviewOptionText}
-                  onPress={() => setShowFullOverview(!showFullOverview)}>
-                  {showFullOverview ? ' Hide' : ' Read more'}
-                </Text>
-              )}
-            </Text>
-          </View>
+          <Text style={styles.Text}>
+            {showFullOverview || details.overview.length <= MAX_LENGTH
+              ? details.overview
+              : details.overview.substring(0, MAX_LENGTH) + '...'}
+            {details.overview.length > MAX_LENGTH && (
+              <Text
+                style={styles.overviewOptionText}
+                onPress={() => setShowFullOverview(!showFullOverview)}>
+                {showFullOverview ? ' Hide' : ' Read more'}
+              </Text>
+            )}
+          </Text>
           <Divider />
           <View style={styles.individualInfoContainer}>
             <Text style={styles.Text}>
@@ -143,17 +131,24 @@ const MoviesDetailsContent: React.FC = () => {
             <Text style={styles.Text}>
               {STRINGS.SECTION_MOVIES_TITLES.RELEASE_DATE}
             </Text>
-            <Text style={styles.rightText}>
-              {formatDate(details.release_date)}
-            </Text>
+            <Text style={styles.rightText}>{formatDate(releaseDate)}</Text>
           </View>
           <Divider />
-          <View style={styles.individualInfoContainer}>
-            <Text style={styles.Text}>
-              {STRINGS.SECTION_MOVIES_TITLES.DURATION}
-            </Text>
-            <Text style={styles.rightText}>{details.runtime} min</Text>
-          </View>
+          {type === 'movie' ? (
+            <View style={styles.individualInfoContainer}>
+              <Text style={styles.Text}>
+                {STRINGS.SECTION_MOVIES_TITLES.DURATION}
+              </Text>
+              <Text style={styles.rightText}>{details.runtime} min</Text>
+            </View>
+          ) : (
+            <View style={styles.individualInfoContainer}>
+              <Text style={styles.Text}>Last Air Date</Text>
+              <Text style={styles.rightText}>
+                {formatDate(details.last_air_date)}
+              </Text>
+            </View>
+          )}
           <Divider />
           <View style={styles.individualInfoContainer}>
             <Text style={styles.Text}>
@@ -174,7 +169,7 @@ const MoviesDetailsContent: React.FC = () => {
           </View>
         </View>
       ) : (
-        <CastCredits movieId={movie.id} />
+        <CastCredits id={id} type={type} />
       )}
     </>
   );
@@ -193,6 +188,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingVertical: 12,
+  },
+  tabUnderline: {
+    height: 2,
+    backgroundColor: '#fff',
+    width: '100%',
+    marginTop: 4,
   },
   Text: {
     color: '#a6adba',
@@ -249,4 +250,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MoviesDetailsContent;
+export default MediaDetailsContent;

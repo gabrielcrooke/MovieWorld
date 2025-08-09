@@ -15,8 +15,9 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/types';
 
-type CastCreditsProps = {
-  movieId: number;
+type Props = {
+  id: number;
+  type: 'movie' | 'tv'; // tipo para controlar el endpoint
 };
 
 type MovieCast = {
@@ -30,7 +31,7 @@ type MovieCast = {
   adult: boolean;
 };
 
-const CastCredits = ({movieId}: CastCreditsProps) => {
+const CastCredits = ({id, type}: Props) => {
   const [cast, setCast] = React.useState<MovieCast[]>([]);
   const [loading, setLoading] = React.useState(true);
   const navigation =
@@ -42,7 +43,7 @@ const CastCredits = ({movieId}: CastCreditsProps) => {
     const fetchDetails = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`,
+          `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${API_KEY}&language=en-US`,
         );
         const data = await response.json();
         setCast(data.cast);
@@ -54,7 +55,7 @@ const CastCredits = ({movieId}: CastCreditsProps) => {
       }
     };
     fetchDetails();
-  }, [movieId]);
+  }, [id, type]);
 
   if (loading) {
     return (

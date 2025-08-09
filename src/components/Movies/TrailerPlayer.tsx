@@ -26,6 +26,7 @@ const TrailerPlayer: React.FC<TrailerPlayerProps> = ({movie}) => {
           `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${API_KEY}&language=en-US`,
         );
         const data = await response.json();
+        console.log('title:', movie.title);
         const youtubeTrailer = data.results.find(
           (vid: any) => vid.site === 'YouTube' && vid.type === 'Trailer',
         );
@@ -37,7 +38,7 @@ const TrailerPlayer: React.FC<TrailerPlayerProps> = ({movie}) => {
       }
     };
     fetchTrailer();
-  }, [movie.id]);
+  }, [movie.id, movie.title]);
 
   let trailerContent;
   if (!trailerKey && loading) {

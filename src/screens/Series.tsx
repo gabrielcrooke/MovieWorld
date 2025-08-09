@@ -6,7 +6,7 @@ export const Series = () => {
     <GradientBackground>
       <ContentList
         type="tv"
-        navigateTo="MoviesDetails"
+        navigateTo="SeriesDetails"
         getTitle={item => item.name}
         getDate={item => item.first_air_date}
       />

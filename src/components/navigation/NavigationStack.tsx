@@ -12,6 +12,7 @@ import {MoviesDetails} from '../../screens/MoviesDetails';
 import {Series} from '../../screens/Series';
 import ActorsDetailsScreen from '../../screens/ActorsDetailsScreen';
 import {STRINGS} from '../../constans/strings';
+import SeriesDetails from '../../screens/SeriesDetails';
 
 // Stacks
 const MoviesStack = createNativeStackNavigator();
@@ -34,6 +35,24 @@ function MoviesStackScreen() {
         options={{headerShown: false}}
       />
     </MoviesStack.Navigator>
+  );
+}
+
+const SeriesStack = createNativeStackNavigator();
+function SeriesStackScreen() {
+  return (
+    <SeriesStack.Navigator>
+      <SeriesStack.Screen
+        name="SeriesScreen"
+        component={Series}
+        options={{headerShown: false}}
+      />
+      <SeriesStack.Screen
+        name="SeriesDetails"
+        component={SeriesDetails}
+        options={{headerShown: false}}
+      />
+    </SeriesStack.Navigator>
   );
 }
 
@@ -110,7 +129,7 @@ export default function NavigationStack() {
         />
         <Tab.Screen
           name="Series"
-          component={Series}
+          component={SeriesStackScreen}
           options={{
             tabBarLabel: ({focused}) => (
               <Text

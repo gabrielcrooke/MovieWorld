@@ -1,5 +1,8 @@
 export type RootStackParamList = {
   Home: undefined;
-  MoviesDetails: {movie: {id: number /* otros campos que uses */}};
+  Movies: undefined;
+  Series: undefined;
+  MoviesDetails: {movie: any};
+  SeriesDetails: {serie: any};
   ActorsDetails: {actorId: number};
 };

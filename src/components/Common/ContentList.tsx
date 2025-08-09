@@ -85,7 +85,19 @@ export const ContentList: React.FC<ContentListProps> = ({
           return (
             <View style={styles.imgContainer}>
               <TouchableOpacity
-                onPress={() => navigation.navigate(navigateTo, {movie: item})}>
+                onPress={() => {
+                  if (navigateTo === 'MoviesDetails') {
+                    navigation.navigate('MoviesDetails', {
+                      movie: {id: item.id, title: getTitle(item)},
+                    });
+                  } else if (navigateTo === 'SeriesDetails') {
+                    navigation.navigate('SeriesDetails', {
+                      serie: {id: item.id},
+                    });
+                  } else if (navigateTo === 'Home') {
+                    navigation.navigate('Home');
+                  }
+                }}>
                 <Image
                   style={styles.imageURl}
                   source={
@@ -135,7 +147,6 @@ export const ContentList: React.FC<ContentListProps> = ({
   );
 };
 
-// (Reutiliza los mismos styles que tenías antes, sin cambio)
 const styles = StyleSheet.create({
   container: {
     flex: 1,

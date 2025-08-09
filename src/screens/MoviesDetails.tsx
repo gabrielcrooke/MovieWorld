@@ -1,14 +1,11 @@
 import React from 'react';
 import TrailerPlayer from '../components/Movies/TrailerPlayer';
 import {useRoute, RouteProp} from '@react-navigation/native';
-import MoviesDetailsContent from '../components/Movies/MoviesDetailsContent';
 import {GradientBackground} from '../components/Common/GradientBackGround';
 import {SimilarCarouselMovies} from '../components/Movies/SimilarCarouselMovies';
 import {ScrollView} from 'react-native';
-
-type RootStackParamList = {
-  MoviesDetails: {movie: any};
-};
+import {RootStackParamList} from '../components/navigation/types';
+import MediaDetailsContent from '../components/Common/MediaDetailsContent';
 
 export const MoviesDetails = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'MoviesDetails'>>();
@@ -17,7 +14,7 @@ export const MoviesDetails = () => {
     <GradientBackground>
       <ScrollView showsVerticalScrollIndicator={false}>
         <TrailerPlayer movie={movie} />
-        <MoviesDetailsContent />
+        <MediaDetailsContent id={movie.id} type="movie" />
         <SimilarCarouselMovies />
       </ScrollView>
     </GradientBackground>
