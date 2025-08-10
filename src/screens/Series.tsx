@@ -8,6 +8,7 @@ export const Series = () => {
         type="tv"
         navigateTo="SeriesDetails"
         getTitle={item => item.name}
+        getName={item => item.name}
         getDate={item => item.first_air_date}
       />
     </GradientBackground>

@@ -6,16 +6,15 @@ import {API_KEY} from '@env';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 
 type TrailerPlayerProps = {
-  movie: {
-    id: number;
-    title: string;
-  };
+  id: number;
+  title: string;
+  type: 'movie' | 'tv';
 };
 
 const {width: screenWidth} = Dimensions.get('window');
 const VIDEO_WIDTH = Math.min(screenWidth - 15, 400);
 const VIDEO_HEIGHT = (VIDEO_WIDTH * 9) / 16;
-const TrailerPlayer: React.FC<TrailerPlayerProps> = ({movie}) => {
+const TrailerPlayer: React.FC<TrailerPlayerProps> = ({id, title, type}) => {
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -23,10 +22,9 @@ const TrailerPlayer: React.FC<TrailerPlayerProps> = ({movie}) => {
     const fetchTrailer = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${API_KEY}&language=en-US`,
+          `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${API_KEY}&language=en-US`,
         );
         const data = await response.json();
-        console.log('title:', movie.title);
         const youtubeTrailer = data.results.find(
           (vid: any) => vid.site === 'YouTube' && vid.type === 'Trailer',
         );
@@ -38,7 +36,7 @@ const TrailerPlayer: React.FC<TrailerPlayerProps> = ({movie}) => {
       }
     };
     fetchTrailer();
-  }, [movie.id, movie.title]);
+  }, [id, title, type]);
 
   let trailerContent;
   if (!trailerKey && loading) {
@@ -62,7 +60,7 @@ const TrailerPlayer: React.FC<TrailerPlayerProps> = ({movie}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.Text}>{movie.title}</Text>
+      <Text style={styles.Text}>{title}</Text>
       <View style={styles.trailerContainer}>{trailerContent}</View>
     </View>
   );

@@ -24,6 +24,7 @@ import {formatOverview} from '../../utils/formatOverview';
 interface ContentListProps {
   type: 'movie' | 'tv';
   getTitle: (item: any) => string;
+  getName: (item: any) => string;
   getDate: (item: any) => string;
   navigateTo: keyof RootStackParamList;
 }
@@ -31,6 +32,7 @@ interface ContentListProps {
 export const ContentList: React.FC<ContentListProps> = ({
   type,
   getTitle,
+  getName,
   getDate,
   navigateTo,
 }) => {
@@ -92,7 +94,7 @@ export const ContentList: React.FC<ContentListProps> = ({
                     });
                   } else if (navigateTo === 'SeriesDetails') {
                     navigation.navigate('SeriesDetails', {
-                      serie: {id: item.id},
+                      serie: {id: item.id, title: getName(item)},
                     });
                   } else if (navigateTo === 'Home') {
                     navigation.navigate('Home');

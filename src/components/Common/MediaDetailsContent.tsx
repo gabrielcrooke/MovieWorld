@@ -15,7 +15,7 @@ type Genre = {id: number; name: string};
 
 type Props = {
   id: number;
-  type: 'movie' | 'tv'; // tipo para controlar el endpoint// título opcional para el componente
+  type: 'movie' | 'tv';
 };
 
 type MediaDetails = {
@@ -24,7 +24,7 @@ type MediaDetails = {
   release_date?: string;
   first_air_date?: string;
   runtime?: number;
-  episode_run_time?: number[];
+  episode_run_time: number[];
   vote_average: number;
   genres: Genre[];
   title?: string;
@@ -46,7 +46,7 @@ const MediaDetailsContent: React.FC<Props> = ({id, type}) => {
         );
         const data = await response.json();
         setDetails(data);
-        console.log(data);
+        /**console.log(data);**/
       } catch {
         setDetails(null);
       } finally {
@@ -108,10 +108,10 @@ const MediaDetailsContent: React.FC<Props> = ({id, type}) => {
       {activeTab === 'Details' ? (
         <View style={styles.container}>
           <Text style={styles.Text}>
-            {showFullOverview || details.overview.length <= MAX_LENGTH
-              ? details.overview
-              : details.overview.substring(0, MAX_LENGTH) + '...'}
-            {details.overview.length > MAX_LENGTH && (
+            {showFullOverview || (details.overview?.length ?? 0) <= MAX_LENGTH
+              ? details.overview ?? 'No overview available'
+              : (details.overview?.substring(0, MAX_LENGTH) ?? '') + '...'}
+            {(details.overview?.length ?? 0) > MAX_LENGTH && (
               <Text
                 style={styles.overviewOptionText}
                 onPress={() => setShowFullOverview(!showFullOverview)}>

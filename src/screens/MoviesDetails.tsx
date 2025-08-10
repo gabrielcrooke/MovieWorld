@@ -13,7 +13,7 @@ export const MoviesDetails = () => {
   return (
     <GradientBackground>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <TrailerPlayer movie={movie} />
+        <TrailerPlayer id={movie.id} title={movie.title} type="movie" />
         <MediaDetailsContent id={movie.id} type="movie" />
         <SimilarCarouselMovies />
       </ScrollView>

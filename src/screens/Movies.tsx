@@ -9,6 +9,7 @@ export const Movies = () => {
         type="movie"
         navigateTo="MoviesDetails"
         getTitle={item => item.title}
+        getName={item => item.title}
         getDate={item => item.release_date}
       />
     </GradientBackground>

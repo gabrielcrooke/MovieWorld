@@ -20,9 +20,16 @@ type RootStackParamList = {
   MoviesDetails: {movie: any};
 };
 
+type Movie = {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path?: string;
+};
+
 export const HeroContent = () => {
   const [dataHero, setDataHero] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedMovie, setSelectedMovie] = React.useState<Movie | null>(null);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -42,7 +49,7 @@ export const HeroContent = () => {
             },
           },
         );
-        /**console.log('API response:', response.data); **/
+        /**console.log('API response:', response.data);**/
         setDataHero(response.data.results);
         if (response.data.results.length > 0) {
           setSelectedMovie(response.data.results[0]); // Set the first movie as the selected one
@@ -59,7 +66,7 @@ export const HeroContent = () => {
     setSelectedMovie(movie); // Set the selected movie
   };
 
-  const renderItem = ({item}) => (
+  const renderItem = ({item}: {item: Movie}) => (
     <Pressable onPress={() => handleMoviePress(item)}>
       <Image
         style={[
@@ -122,7 +129,7 @@ export const HeroContent = () => {
                         screen: 'MoviesDetails',
                         params: {movie: selectedMovie},
                       });
-                    }, 100); // pequeño delay para asegurar que el stack se monte
+                    }, 100);
                   }}>
                   <Text style={styles.btnText}>
                     <Icon
