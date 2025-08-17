@@ -52,6 +52,11 @@ function SeriesStackScreen() {
         component={SeriesDetails}
         options={{headerShown: false}}
       />
+      <SeriesStack.Screen
+        name="ActorsDetails"
+        component={ActorsDetailsScreen}
+        options={{headerShown: false}}
+      />
     </SeriesStack.Navigator>
   );
 }

@@ -6,14 +6,17 @@ import {useFetchData} from '../../hooks/useFetchData';
 interface GenreFilterProps {
   selectedGenre: string | undefined;
   setSelectedGenre: (genreId: string) => void;
+  type: 'movie' | 'tv';
 }
 
 export const GenreMoviesFilter: React.FC<GenreFilterProps> = ({
   selectedGenre,
   setSelectedGenre,
+  type,
 }) => {
-  const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
+  const url = `https://api.themoviedb.org/3/genre/${type}/list?language=en`;
   const {data: genres} = useFetchData(url, [url]);
+  /**console.log('Fetched genres:', genres);**/
 
   return (
     <View style={styles.container}>

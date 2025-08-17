@@ -65,6 +65,7 @@ export const ContentList: React.FC<ContentListProps> = ({
         <GenreMoviesFilter
           selectedGenre={selectedGenre}
           setSelectedGenre={setSelectedGenre}
+          type={type}
         />
         <OrderMoviesFilter
           selectedOrder={selectedOrder}
