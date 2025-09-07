@@ -4,8 +4,6 @@ import React from 'react';
 import Carousel from '../Home/Carousel';
 import {useFetchData} from '../../hooks/useFetchData';
 import {STRINGS} from '../../constans/strings';
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {RootStackParamList} from '../navigation/types';
 
 type Props = {
   id: number;

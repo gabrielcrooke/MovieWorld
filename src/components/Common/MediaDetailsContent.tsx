@@ -74,6 +74,39 @@ const MediaDetailsContent: React.FC<Props> = ({id, type}) => {
     );
   }
 
+  function renderRatingRow() {
+    if (!details) {
+      return null;
+    }
+    return (
+      <View style={styles.individualInfoContainer}>
+        <Text style={styles.Text}>{STRINGS.SECTION_MOVIES_TITLES.RATING}</Text>
+        <Text style={styles.rightText}>
+          <Icon name="star" size={14} color="#F7CD2E" />{' '}
+          {typeof details.vote_average === 'number'
+            ? details.vote_average.toFixed(1) + '/10'
+            : '0/10'}
+        </Text>
+      </View>
+    );
+  }
+
+  function renderGenres() {
+    return (
+      <View style={styles.genresContainer}>
+        {Array.isArray(details?.genres) && details.genres.length > 0 ? (
+          details.genres.map(g => (
+            <View key={g.id} style={styles.genreTag}>
+              <Text style={styles.genreText}>{g.name}</Text>
+            </View>
+          ))
+        ) : (
+          <Text style={styles.errorText}>No genres</Text>
+        )}
+      </View>
+    );
+  }
+
   const releaseDate = details.release_date || details.first_air_date || 'N/A';
 
   return (
@@ -150,29 +183,9 @@ const MediaDetailsContent: React.FC<Props> = ({id, type}) => {
             </View>
           )}
           <Divider />
-          <View style={styles.individualInfoContainer}>
-            <Text style={styles.Text}>
-              {STRINGS.SECTION_MOVIES_TITLES.RATING}
-            </Text>
-            <Text style={styles.rightText}>
-              <Icon name="star" size={14} color="#F7CD2E" />{' '}
-              {typeof details.vote_average === 'number'
-                ? details.vote_average.toFixed(1) + '/10'
-                : '0/10'}
-            </Text>
-          </View>
+          {renderRatingRow()}
           <Divider />
-          <View style={styles.genresContainer}>
-            {Array.isArray(details.genres) && details.genres.length > 0 ? (
-              details.genres.map(g => (
-                <View key={g.id} style={styles.genreTag}>
-                  <Text style={styles.genreText}>{g.name}</Text>
-                </View>
-              ))
-            ) : (
-              <Text style={styles.errorText}>No genres</Text>
-            )}
-          </View>
+          {renderGenres()}
         </View>
       ) : (
         <CastCredits id={id} type={type} />
