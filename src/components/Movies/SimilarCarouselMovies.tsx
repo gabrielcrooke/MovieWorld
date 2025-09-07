@@ -7,11 +7,13 @@ import {STRINGS} from '../../constans/strings';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/types';
 
-export const SimilarCarouselMovies = () => {
-  const route = useRoute<RouteProp<RootStackParamList, 'MoviesDetails'>>();
-  const {movie} = route.params;
+type Props = {
+  id: number;
+  type: 'movie' | 'tv';
+};
 
-  const url = `https://api.themoviedb.org/3/movie/${movie.id}/similar`;
+export const SimilarCarouselMovies: React.FC<Props> = ({id, type}) => {
+  const url = `https://api.themoviedb.org/3/${type}/${id}/similar`;
 
   //Obtener los datos utilizando el hook useFetchData
   const {data, error} = useFetchData(url, [url]);
@@ -23,7 +25,9 @@ export const SimilarCarouselMovies = () => {
   return (
     <>
       <Carousel
-        title={STRINGS.SIMILAR_MOVIES}
+        title={
+          type === 'movie' ? STRINGS.SIMILAR_MOVIES : STRINGS.SIMILAR_SERIES
+        }
         data={data}
         imageSize={{width: 100, height: 140}}
         titleStyle={{

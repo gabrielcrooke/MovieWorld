@@ -156,16 +156,22 @@ const MediaDetailsContent: React.FC<Props> = ({id, type}) => {
             </Text>
             <Text style={styles.rightText}>
               <Icon name="star" size={14} color="#F7CD2E" />{' '}
-              {details.vote_average.toFixed(1)}/10
+              {typeof details.vote_average === 'number'
+                ? details.vote_average.toFixed(1) + '/10'
+                : '0/10'}
             </Text>
           </View>
           <Divider />
           <View style={styles.genresContainer}>
-            {details.genres.map(g => (
-              <View key={g.id} style={styles.genreTag}>
-                <Text style={styles.genreText}>{g.name}</Text>
-              </View>
-            ))}
+            {Array.isArray(details.genres) && details.genres.length > 0 ? (
+              details.genres.map(g => (
+                <View key={g.id} style={styles.genreTag}>
+                  <Text style={styles.genreText}>{g.name}</Text>
+                </View>
+              ))
+            ) : (
+              <Text style={styles.errorText}>No genres</Text>
+            )}
           </View>
         </View>
       ) : (

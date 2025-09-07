@@ -15,7 +15,7 @@ export const MoviesDetails = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <TrailerPlayer id={movie.id} title={movie.title} type="movie" />
         <MediaDetailsContent id={movie.id} type="movie" />
-        <SimilarCarouselMovies />
+        <SimilarCarouselMovies id={movie.id} type="movie" />
       </ScrollView>
     </GradientBackground>
   );
